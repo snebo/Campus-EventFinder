@@ -1,0 +1,20 @@
+@if (visible()) {
+  <div
+    data-testid="tooltip-body"
+    class="absolute z-10 max-w-xs rounded-tooltip px-3 py-2 text-tooltip shadow-lg"
+    [class]="variantClass() + ' ' + positionClass()"
+  >
+    <div class="flex items-start gap-2">
+      <div class="flex-1">
+        @if (text()) {
+          {{ text() }}
+        } @else {
+          <ng-content></ng-content>
+        }
+      </div>
+      @if (showCloseButton()) {
+        <app-icon-button icon="X" ariaLabel="Dismiss" (clicked)="onCloseClick()" />
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,12 @@
+<input
+  [id]="id()"
+  [type]="type()"
+  [placeholder]="placeholder()"
+  [attr.autocomplete]="autocomplete()"
+  [disabled]="isDisabled()"
+  [value]="value()"
+  [class]="inputClasses()"
+  (input)="onInput($event)"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+/>

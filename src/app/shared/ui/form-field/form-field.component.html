@@ -1,0 +1,9 @@
+<div class="mb-field-gap flex flex-col gap-1.5">
+  <label [for]="for()" class="text-label uppercase text-text-secondary">{{ label() }}</label>
+
+  <ng-content />
+
+  @if (messageText()) {
+    <p [class]="messageClass()" data-testid="form-field-message">{{ messageText() }}</p>
+  }
+</div>
