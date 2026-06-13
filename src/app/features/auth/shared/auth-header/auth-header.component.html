@@ -1,0 +1,16 @@
+<div class="flex items-center justify-between">
+  <app-logo [brandName]="brandName()" />
+
+  @if (showInfo()) {
+    <div class="relative">
+      <app-icon-button icon="Info" ariaLabel="About Eventfindr" (clicked)="toggleInfoTooltip()" />
+      <app-tooltip
+        [visible]="showInfoTooltip()"
+        [text]="infoTooltipText()"
+        variant="neutral"
+        position="bottom"
+        (dismiss)="onTooltipDismiss()"
+      />
+    </div>
+  }
+</div>

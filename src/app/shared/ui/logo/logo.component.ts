@@ -23,6 +23,7 @@ const TEXT_SIZE_CLASSES: Record<LogoSize, string> = {
 })
 export class LogoComponent {
   size = input<LogoSize>('md');
+  brandName = input<string>('Eventfindr');
 
   iconSize = computed(() => ICON_SIZES[this.size()]);
   textSizeClass = computed(() => TEXT_SIZE_CLASSES[this.size()]);

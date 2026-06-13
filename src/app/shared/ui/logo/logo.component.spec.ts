@@ -57,4 +57,11 @@ describe('LogoComponent', () => {
     expect(icon.componentInstance.size).toBeGreaterThan(20);
     expect(text.nativeElement.classList.contains('text-logo')).toBe(false);
   });
+
+  it('renders the given brandName instead of the default wordmark', () => {
+    fixture.componentRef.setInput('brandName', 'Custom Brand');
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent.trim()).toBe('Custom Brand');
+  });
 });

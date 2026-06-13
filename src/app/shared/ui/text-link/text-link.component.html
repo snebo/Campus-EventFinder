@@ -1,0 +1,24 @@
+<span class="relative inline-block">
+  <a
+    [routerLink]="routerLink()"
+    [class]="'inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary ' + weightClass()"
+    (click)="onClick($event)"
+  >
+    @if (icon() && iconPosition() === 'left') {
+      <lucide-icon [name]="icon()!" [size]="16" />
+    }
+    {{ label() }}
+    @if (icon() && iconPosition() === 'right') {
+      <lucide-icon [name]="icon()!" [size]="16" />
+    }
+  </a>
+
+  @if (comingSoon() && !routerLink()) {
+    <app-tooltip
+      [visible]="showComingSoonTooltip()"
+      [text]="comingSoonText()"
+      variant="neutral"
+      (dismiss)="onTooltipDismiss()"
+    />
+  }
+</span>
