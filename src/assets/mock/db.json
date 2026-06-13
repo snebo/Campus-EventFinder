@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "id": "user-1",
+      "fullName": "Ada Eze",
+      "email": "ada.eze@unilag.edu.ng",
+      "password": "Password123",
+      "token": "mock-token-user-1"
+    },
+    {
+      "id": "user-2",
+      "fullName": "Tunde Bakare",
+      "email": "tunde.bakare@unilag.edu.ng",
+      "password": "Password123",
+      "token": "mock-token-user-2"
+    }
+  ]
+}

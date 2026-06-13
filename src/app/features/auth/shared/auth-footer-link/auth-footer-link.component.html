@@ -1,0 +1,9 @@
+<p class="text-center text-subtitle text-text-secondary">
+  {{ promptText() }}
+  <button
+    type="button"
+    data-testid="auth-footer-link-action"
+    class="font-bold text-text-primary underline"
+    (click)="onActionClick()"
+  >{{ actionText() }}</button>
+</p>

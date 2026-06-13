@@ -1,0 +1,48 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-field-gap">
+  <app-form-field label="Full Name" for="signup-full-name" [errorText]="fullNameErrorText()">
+    <app-text-input
+      id="signup-full-name"
+      formControlName="fullName"
+      placeholder="Enter your full name"
+      autocomplete="name"
+      [invalid]="!!fullNameErrorText()"
+    />
+  </app-form-field>
+
+  <app-form-field label="Email" for="signup-email" [errorText]="emailErrorText()">
+    <app-text-input
+      id="signup-email"
+      type="email"
+      formControlName="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      [invalid]="!!emailErrorText()"
+    />
+  </app-form-field>
+
+  <app-form-field
+    label="Password"
+    for="signup-password"
+    [helperText]="passwordHelperText()"
+    [helperTextVariant]="passwordHelperVariant()"
+  >
+    <app-password-input id="signup-password" formControlName="password" placeholder="Create a password" autocomplete="new-password" />
+  </app-form-field>
+
+  <div class="relative">
+    <app-button label="Sign Up" type="submit" [disabled]="!isFormValid()" [loading]="isSubmitting()" />
+    <app-tooltip
+      [visible]="showServerErrorTooltip()"
+      [text]="serverError() ?? ''"
+      variant="error"
+      position="top"
+      (dismiss)="onServerErrorDismiss()"
+    />
+  </div>
+
+  <app-auth-footer-link
+    promptText="Already have an account?"
+    actionText="Sign In"
+    (actionClick)="navigateToSignIn.emit()"
+  />
+</form>
