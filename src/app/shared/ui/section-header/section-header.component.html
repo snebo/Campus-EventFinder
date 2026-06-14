@@ -1,0 +1,22 @@
+<div class="flex items-center justify-between">
+  <h2 class="text-label uppercase text-text-primary">{{ title() }}</h2>
+
+  @if (actionLabel()) {
+    <button
+      type="button"
+      data-testid="section-header-action"
+      class="text-label uppercase text-text-secondary hover:text-text-primary"
+      (click)="onActionClick()"
+    >{{ actionLabel() }}</button>
+  } @else if (actionIcon()) {
+    <button
+      type="button"
+      data-testid="section-header-action"
+      aria-label="Section action"
+      class="inline-flex items-center text-text-secondary hover:text-text-primary"
+      (click)="onActionClick()"
+    >
+      <lucide-icon [name]="actionIcon()!" [size]="18" />
+    </button>
+  }
+</div>

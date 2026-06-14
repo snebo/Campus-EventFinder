@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, delay, map, shareReplay } from 'rxjs';
 
+import { EventDetails } from '../../shared/models/event.model';
+
 export interface MockUser {
   id: string;
   fullName: string;
@@ -10,8 +12,20 @@ export interface MockUser {
   token: string;
 }
 
+export interface MockUserEvents {
+  rsvpd: string[];
+  saved: string[];
+}
+
+export interface MockEventsData {
+  events: EventDetails[];
+  userEvents: Record<string, MockUserEvents>;
+}
+
 interface MockDb {
   users: MockUser[];
+  events?: EventDetails[];
+  userEvents?: Record<string, MockUserEvents>;
 }
 
 interface CreateUserValue {
@@ -37,12 +51,21 @@ function generateId(prefix: string): string {
 @Injectable({ providedIn: 'root' })
 export class MockApiService {
   private readonly users = signal<MockUser[]>([]);
+  private readonly events = signal<EventDetails[]>([]);
+  private readonly userEvents = signal<Record<string, MockUserEvents>>({});
   private rawLoad$: Observable<void> | null = null;
 
   constructor(private readonly http: HttpClient) {}
 
   load(): Observable<void> {
     return this.ensureLoaded().pipe(delay(MOCK_DELAY_MS));
+  }
+
+  getEventsData(): Observable<MockEventsData> {
+    return this.ensureLoaded().pipe(
+      map(() => ({ events: this.events(), userEvents: this.userEvents() })),
+      delay(MOCK_DELAY_MS),
+    );
   }
 
   findUserByEmail(email: string): Observable<MockUser | undefined> {
@@ -79,6 +102,8 @@ export class MockApiService {
       this.rawLoad$ = this.http.get<MockDb>(DB_URL).pipe(
         map((db) => {
           this.users.set(db.users);
+          this.events.set(db.events ?? []);
+          this.userEvents.set(db.userEvents ?? {});
         }),
         shareReplay(1),
       );

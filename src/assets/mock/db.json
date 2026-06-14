@@ -14,5 +14,202 @@
       "password": "Password123",
       "token": "mock-token-user-2"
     }
-  ]
+  ],
+  "events": [
+    {
+      "id": "evt-01",
+      "title": "Annual Tech Symposium",
+      "category": "academic",
+      "imageUrl": "https://picsum.photos/seed/evt-01/800/450",
+      "dateLabel": "NOV 15",
+      "timeLabel": "10:00 AM - 2:00 PM",
+      "location": "Faculty of Science Auditorium",
+      "date": "2026-11-15",
+      "description": "A full-day symposium featuring student research, keynote speakers from the tech industry, and hands-on workshops. Open to all faculties."
+    },
+    {
+      "id": "evt-02",
+      "title": "Unilag Music Festival",
+      "category": "entertainment",
+      "imageUrl": "https://picsum.photos/seed/evt-02/800/450",
+      "dateLabel": "OCT 24",
+      "timeLabel": "6:00 PM - 11:00 PM",
+      "location": "Main Bowl",
+      "date": "2026-10-24",
+      "description": "An evening of live performances from student bands and special guest artists. Food vendors and merchandise stalls on site."
+    },
+    {
+      "id": "evt-03",
+      "title": "Inter-Faculty Football Final",
+      "category": "sports",
+      "dateLabel": "DEC 5",
+      "timeLabel": "4:00 PM - 6:00 PM",
+      "location": "Sports Complex",
+      "date": "2026-12-05",
+      "description": "The championship match of the inter-faculty league. Come support your faculty in this season decider."
+    },
+    {
+      "id": "evt-04",
+      "title": "Career Fair 2026",
+      "category": "professional",
+      "imageUrl": "https://picsum.photos/seed/evt-04/800/450",
+      "dateLabel": "SEP 30",
+      "timeLabel": "9:00 AM - 4:00 PM",
+      "location": "Jelili Omotola Hall",
+      "date": "2026-09-30",
+      "description": "Meet recruiters from leading companies, attend CV clinics, and explore internship and graduate opportunities."
+    },
+    {
+      "id": "evt-05",
+      "title": "Cultural Heritage Day",
+      "category": "cultural",
+      "dateLabel": "NOV 2",
+      "timeLabel": "12:00 PM - 5:00 PM",
+      "location": "Multipurpose Hall",
+      "date": "2026-11-02",
+      "description": "A celebration of Nigeria's diverse cultures with traditional attire, music, and cuisine from across the regions."
+    },
+    {
+      "id": "evt-06",
+      "title": "Taste of Lagos Food Fair",
+      "category": "food",
+      "imageUrl": "https://picsum.photos/seed/evt-06/800/450",
+      "dateLabel": "OCT 10",
+      "timeLabel": "11:00 AM - 7:00 PM",
+      "location": "Student Union Plaza",
+      "date": "2026-10-10",
+      "description": "Sample dishes from local vendors and student-run kitchens. A food lover's tour of Lagos flavours."
+    },
+    {
+      "id": "evt-07",
+      "title": "Startup Pitch Night",
+      "category": "professional",
+      "dateLabel": "JAN 20",
+      "timeLabel": "5:00 PM - 8:00 PM",
+      "location": "Innovation Hub",
+      "date": "2027-01-20",
+      "description": "Student founders pitch their ventures to a panel of investors and mentors. Networking session to follow."
+    },
+    {
+      "id": "evt-08",
+      "title": "Drama Society Showcase",
+      "category": "entertainment",
+      "dateLabel": "DEC 18",
+      "timeLabel": "7:00 PM - 9:00 PM",
+      "location": "Arts Theatre",
+      "date": "2026-12-18",
+      "description": "The Drama Society presents its end-of-semester production. An evening of original student theatre."
+    },
+    {
+      "id": "evt-09",
+      "title": "Basketball Championship",
+      "category": "sports",
+      "dateLabel": "FEB 14",
+      "timeLabel": "3:00 PM - 5:00 PM",
+      "location": "Indoor Sports Hall",
+      "date": "2027-02-14",
+      "description": "The final of the campus basketball tournament. Doors open an hour before tip-off."
+    },
+    {
+      "id": "evt-10",
+      "title": "Research Methods Workshop",
+      "category": "academic",
+      "dateLabel": "SEP 12",
+      "timeLabel": "10:00 AM - 1:00 PM",
+      "location": "Library Seminar Room",
+      "date": "2026-09-12",
+      "description": "A practical workshop on research design, data collection, and academic writing for final-year students."
+    },
+    {
+      "id": "evt-11",
+      "title": "Jazz & Poetry Evening",
+      "category": "cultural",
+      "dateLabel": "MAR 8",
+      "timeLabel": "6:30 PM - 9:00 PM",
+      "location": "Senate Building Lawn",
+      "date": "2027-03-08",
+      "description": "An intimate evening of live jazz and spoken-word poetry under the stars."
+    },
+    {
+      "id": "evt-12",
+      "title": "Campus Cook-off",
+      "category": "food",
+      "dateLabel": "NOV 22",
+      "timeLabel": "1:00 PM - 5:00 PM",
+      "location": "Refectory Courtyard",
+      "date": "2026-11-22",
+      "description": "Halls compete to be crowned the campus's best cooks. Tasting tickets available at the door."
+    },
+    {
+      "id": "evt-13",
+      "title": "AI & Robotics Expo",
+      "category": "academic",
+      "imageUrl": "https://picsum.photos/seed/evt-13/800/450",
+      "dateLabel": "APR 3",
+      "timeLabel": "10:00 AM - 4:00 PM",
+      "location": "Engineering Complex",
+      "date": "2027-04-03",
+      "description": "Demonstrations of student-built robots and AI projects, plus talks on the future of automation."
+    },
+    {
+      "id": "evt-14",
+      "title": "Freshers' Welcome Concert",
+      "category": "entertainment",
+      "dateLabel": "OCT 5",
+      "timeLabel": "5:00 PM - 10:00 PM",
+      "location": "Main Bowl",
+      "date": "2026-10-05",
+      "description": "Kick off the new session with live music, games, and giveaways. All new students welcome."
+    },
+    {
+      "id": "evt-15",
+      "title": "Marathon for Charity",
+      "category": "sports",
+      "dateLabel": "JAN 31",
+      "timeLabel": "7:00 AM - 11:00 AM",
+      "location": "Campus Gate to Lagoon",
+      "date": "2027-01-31",
+      "description": "A 10km run to raise funds for the student welfare endowment. Register your team in advance."
+    },
+    {
+      "id": "evt-16",
+      "title": "Alumni Networking Mixer",
+      "category": "professional",
+      "dateLabel": "DEC 12",
+      "timeLabel": "6:00 PM - 9:00 PM",
+      "location": "Vice Chancellor's Lodge",
+      "date": "2026-12-12",
+      "description": "Connect with Unilag alumni across industries. Light refreshments and structured networking rounds."
+    },
+    {
+      "id": "evt-17",
+      "title": "Traditional Dance Competition",
+      "category": "cultural",
+      "dateLabel": "MAR 15",
+      "timeLabel": "2:00 PM - 6:00 PM",
+      "location": "Multipurpose Hall",
+      "date": "2026-03-15",
+      "description": "Troupes from each faculty perform traditional dances for the grand prize. A past-season highlight."
+    },
+    {
+      "id": "evt-18",
+      "title": "Street Food Carnival",
+      "category": "food",
+      "dateLabel": "NOV 20",
+      "timeLabel": "12:00 PM - 8:00 PM",
+      "location": "Student Union Plaza",
+      "date": "2025-11-20",
+      "description": "A previous edition of the carnival bringing Lagos street-food culture to campus."
+    }
+  ],
+  "userEvents": {
+    "user-1": {
+      "rsvpd": ["evt-01", "evt-04"],
+      "saved": ["evt-02", "evt-06"]
+    },
+    "user-2": {
+      "rsvpd": ["evt-08"],
+      "saved": []
+    }
+  }
 }

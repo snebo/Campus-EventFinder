@@ -1,0 +1,21 @@
+@switch (variant()) {
+  @case ('dismissible') {
+    <span [class]="chipClasses()">
+      <button type="button" class="text-left" (click)="onClick()">{{ label() }}</button>
+      <button type="button" aria-label="Dismiss" class="inline-flex items-center" (click)="onDismiss()">
+        <lucide-icon name="X" [size]="14" />
+      </button>
+    </span>
+  }
+  @case ('dropdown') {
+    <button type="button" [class]="chipClasses()" (click)="onClick()">
+      {{ label() }}
+      <lucide-icon name="ChevronDown" [size]="14" />
+    </button>
+  }
+  @default {
+    <button type="button" [class]="chipClasses()" [attr.aria-pressed]="selected()" (click)="onClick()">
+      {{ label() }}
+    </button>
+  }
+}
