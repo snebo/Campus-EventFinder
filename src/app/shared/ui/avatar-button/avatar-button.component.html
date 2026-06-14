@@ -1,0 +1,12 @@
+@if (imageUrl(); as src) {
+  <button
+    type="button"
+    [attr.aria-label]="ariaLabel()"
+    class="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
+    (click)="clicked.emit()"
+  >
+    <img [src]="src" alt="" class="h-full w-full rounded-full object-cover" />
+  </button>
+} @else {
+  <app-icon-button icon="User" variant="default" [ariaLabel]="ariaLabel()" (clicked)="clicked.emit()" />
+}

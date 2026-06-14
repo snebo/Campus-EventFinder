@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-6 p-6">
+  <app-page-header title="Account" subtitle="Manage your Eventfindr account." />
+
+  @if (currentUser; as user) {
+    <dl class="flex flex-col gap-4">
+      <div>
+        <dt class="text-helper text-text-secondary">Name</dt>
+        <dd class="text-input text-text-primary" data-testid="account-full-name">{{ user.fullName }}</dd>
+      </div>
+      <div>
+        <dt class="text-helper text-text-secondary">Email</dt>
+        <dd class="text-input text-text-primary" data-testid="account-email">{{ user.email }}</dd>
+      </div>
+    </dl>
+  } @else {
+    <p class="text-text-secondary" data-testid="account-no-session">You are not signed in.</p>
+  }
+
+  <app-button label="Sign Out" variant="outline" [fullWidth]="false" (clicked)="signOut()" />
+</div>

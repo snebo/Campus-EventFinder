@@ -1,0 +1,16 @@
+<div class="flex items-center gap-2 rounded-input border border-border-default bg-surface-elevated px-3 py-2">
+  <lucide-icon name="Search" [size]="20" class="text-text-secondary" />
+
+  <input
+    type="text"
+    [placeholder]="placeholder()"
+    [value]="current()"
+    class="w-full bg-transparent text-input text-text-primary placeholder-text-placeholder outline-none"
+    (input)="onInput($event)"
+    (keydown.enter)="onSubmit()"
+  />
+
+  @if (showFilterButton()) {
+    <app-icon-button icon="SlidersHorizontal" ariaLabel="Filters" (clicked)="filterClick.emit()" />
+  }
+</div>

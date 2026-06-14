@@ -1,0 +1,13 @@
+<div class="mx-auto flex min-h-screen w-full max-w-auth-container flex-col gap-8 p-6">
+  <app-auth-header [showInfo]="false" />
+
+  <app-page-header title="Welcome back" [subtitle]="subtitle" />
+
+  <app-login-form
+    [isSubmitting]="isSubmitting()"
+    [serverError]="serverError()"
+    [fieldErrors]="fieldErrors()"
+    (submitForm)="onSubmit($event)"
+    (navigateToSignUp)="onNavigateToSignUp()"
+  />
+</div>

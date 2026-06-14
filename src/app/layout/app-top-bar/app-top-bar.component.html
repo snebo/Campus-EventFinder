@@ -1,0 +1,8 @@
+<header class="flex items-center justify-between border-b border-border-default bg-surface px-4 py-3">
+  <div class="flex items-center gap-2">
+    <app-icon-button icon="Menu" ariaLabel="Open menu" (clicked)="menuClick.emit()" />
+    <span class="text-logo text-text-primary">{{ brandName() }}</span>
+  </div>
+
+  <app-avatar-button (clicked)="avatarClick.emit()" />
+</header>

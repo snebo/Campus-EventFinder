@@ -11,19 +11,11 @@ import {
 import { IconButtonComponent } from '../icon-button/icon-button.component';
 
 export type TooltipVariant = 'info' | 'error' | 'neutral';
-export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 
 const VARIANT_CLASSES: Record<TooltipVariant, string> = {
   info: 'bg-tooltip-info-bg text-tooltip-info-text',
   neutral: 'bg-tooltip-info-bg text-tooltip-info-text',
   error: 'bg-tooltip-error-bg border border-tooltip-error-border text-tooltip-error-text',
-};
-
-const POSITION_CLASSES: Record<TooltipPosition, string> = {
-  top: 'bottom-full left-0 mb-2',
-  bottom: 'top-full left-0 mt-2',
-  left: 'right-full top-0 mr-2',
-  right: 'left-full top-0 ml-2',
 };
 
 @Component({
@@ -36,7 +28,6 @@ export class TooltipComponent {
   visible = input.required<boolean>();
   text = input<string>();
   variant = input<TooltipVariant>('info');
-  position = input<TooltipPosition>('bottom');
   showCloseButton = input<boolean>(true);
   autoDismissMs = input<number | undefined>(5000);
 
@@ -46,7 +37,6 @@ export class TooltipComponent {
   private wasVisible = false;
 
   variantClass = computed(() => VARIANT_CLASSES[this.variant()]);
-  positionClass = computed(() => POSITION_CLASSES[this.position()]);
 
   constructor() {
     effect((onCleanup) => {

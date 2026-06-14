@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { LucideAngularModule, X } from 'lucide-angular';
 
-import { TooltipComponent, TooltipPosition, TooltipVariant } from './tooltip.component';
+import { TooltipComponent, TooltipVariant } from './tooltip.component';
 
 @Component({
   selector: 'app-tooltip-host',
@@ -13,7 +13,6 @@ import { TooltipComponent, TooltipPosition, TooltipVariant } from './tooltip.com
       [visible]="visible"
       [text]="text"
       [variant]="variant"
-      [position]="position"
       [showCloseButton]="showCloseButton"
       [autoDismissMs]="autoDismissMs"
       (dismiss)="dismissCount = dismissCount + 1"
@@ -28,7 +27,6 @@ class TooltipHostComponent {
   visible = false;
   text: string | undefined;
   variant: TooltipVariant = 'info';
-  position: TooltipPosition = 'bottom';
   showCloseButton = true;
   autoDismissMs: number | undefined = 5000;
   dismissCount = 0;
@@ -76,13 +74,16 @@ describe('TooltipComponent', () => {
     expect(tooltipBody().nativeElement.textContent).toContain('Projected content');
   });
 
-  it('applies the position class for the given position', () => {
+  it('is fixed to the top-right of the viewport and clamped so it cannot overflow', () => {
     host.visible = true;
-    host.text = 'Tip';
-    host.position = 'top';
+    host.text = 'A long tooltip message that would otherwise overflow a small mobile screen';
     fixture.detectChanges();
 
-    expect(tooltipBody().nativeElement.classList.contains('bottom-full')).toBe(true);
+    const classList = tooltipBody().nativeElement.classList;
+    expect(classList.contains('fixed')).toBe(true);
+    expect(classList.contains('top-4')).toBe(true);
+    expect(classList.contains('right-4')).toBe(true);
+    expect(classList.contains('max-w-[min(20rem,calc(100vw_-_2rem))]')).toBe(true);
   });
 
   it('emits dismiss once when clicking outside the tooltip', () => {

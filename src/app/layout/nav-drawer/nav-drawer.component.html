@@ -1,0 +1,30 @@
+@if (open()) {
+  <div class="fixed inset-0 z-40">
+    <div
+      data-testid="nav-drawer-backdrop"
+      class="absolute inset-0 bg-black/40 transition-opacity"
+      (click)="close.emit()"
+    ></div>
+
+    <nav
+      data-testid="nav-drawer-panel"
+      class="absolute inset-y-0 left-0 flex w-72 max-w-[80%] flex-col gap-4 bg-surface p-4 shadow-lg transition-transform"
+    >
+      <div class="flex items-center justify-between">
+        <app-logo />
+        <app-icon-button icon="X" ariaLabel="Close menu" (clicked)="close.emit()" />
+      </div>
+
+      <div class="flex flex-col">
+        @for (link of links(); track link.routerLink) {
+          <app-nav-link-item
+            [label]="link.label"
+            [routerLink]="link.routerLink"
+            [active]="link.routerLink === activeRoute()"
+            (click)="close.emit()"
+          />
+        }
+      </div>
+    </nav>
+  </div>
+}
