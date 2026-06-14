@@ -19,16 +19,15 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadComponent: () => import('./features/home/home-page.component').then((m) => m.HomePageComponent),
+        loadChildren: () => import('./features/home/home-page.routes').then((m) => m.HOME_ROUTES),
       },
       {
         path: 'search',
-        loadComponent: () => import('./features/search/search-page.component').then((m) => m.SearchPageComponent),
+        loadChildren: () => import('./features/search/search-page.routes').then((m) => m.SEARCH_ROUTES),
       },
       {
         path: 'schedule',
-        loadComponent: () =>
-          import('./features/schedule/schedule-page.component').then((m) => m.SchedulePageComponent),
+        loadChildren: () => import('./features/schedule/schedule-page.routes').then((m) => m.SCHEDULE_ROUTES),
       },
       {
         path: 'account',
@@ -36,8 +35,8 @@ export const routes: Routes = [
       },
       {
         path: 'events/:id',
-        loadComponent: () =>
-          import('./features/event-details/event-details-page.component').then((m) => m.EventDetailsPageComponent),
+        loadChildren: () =>
+          import('./features/event-details/event-details-page.routes').then((m) => m.EVENT_DETAILS_ROUTES),
       },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
     ],

@@ -4,6 +4,8 @@
   <app-nav-drawer [open]="drawerOpen()" [activeRoute]="activeRoute()" (close)="closeDrawer()" />
 
   <main class="flex-1">
-    <router-outlet />
+    <div class="mx-auto w-full max-w-3xl">
+      <router-outlet />
+    </div>
   </main>
 </div>

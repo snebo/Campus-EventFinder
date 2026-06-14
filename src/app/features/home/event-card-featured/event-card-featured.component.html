@@ -1,0 +1,28 @@
+<article class="overflow-hidden rounded-card border border-border-default bg-surface-elevated">
+  <div class="relative">
+    @if (event().imageUrl; as imageUrl) {
+      <img [src]="imageUrl" alt="" class="aspect-video w-full object-cover" />
+    } @else {
+      <app-image-placeholder aspectRatio="16/9" />
+    }
+
+    @if (event().dateLabel; as dateLabel) {
+      <div class="absolute left-2 top-2">
+        <app-event-badge variant="neutral" [label]="dateLabel" />
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-2 p-4">
+    <h3 class="text-input font-semibold text-text-primary">{{ event().title }}</h3>
+
+    @if (event().timeLabel; as timeLabel) {
+      <app-event-meta-row icon="Clock" [text]="timeLabel" />
+    }
+    @if (event().location; as location) {
+      <app-event-meta-row icon="MapPin" [text]="location" />
+    }
+
+    <app-button class="mt-2 block" variant="outline" label="LEARN MORE" (clicked)="onLearnMore()" />
+  </div>
+</article>

@@ -1,0 +1,31 @@
+<article class="overflow-hidden rounded-card border border-border-default bg-surface-elevated">
+  <div class="relative">
+    <img [src]="event().imageUrl" alt="" class="aspect-video w-full object-cover" />
+
+    <div class="absolute left-2 top-2">
+      <app-bookmark-button [saved]="!!event().isBookmarked" (toggle)="onBookmarkToggle()" />
+    </div>
+
+    @if (categoryLabel()) {
+      <div class="absolute right-2 top-2">
+        <app-event-badge variant="neutral" [label]="categoryLabel()" />
+      </div>
+    }
+  </div>
+
+  <div class="flex flex-col gap-2 p-4">
+    <h3 class="text-input font-semibold text-text-primary">{{ event().title }}</h3>
+
+    @if (dateTimeLabel()) {
+      <app-event-meta-row icon="Calendar" [text]="dateTimeLabel()" />
+    }
+    @if (event().location; as location) {
+      <app-event-meta-row icon="MapPin" [text]="location" />
+    }
+
+    <div class="mt-2 flex gap-2">
+      <app-button class="flex-1" label="REGISTER" (clicked)="onRegister()" />
+      <app-button class="flex-1" variant="outline" label="DETAILS" (clicked)="onDetails()" />
+    </div>
+  </div>
+</article>

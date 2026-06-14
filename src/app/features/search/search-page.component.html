@@ -1,0 +1,51 @@
+<div class="flex flex-col gap-4 p-4">
+  <app-search-bar
+    placeholder="Search events at UNILAG..."
+    [value]="query()"
+    [showFilterButton]="false"
+    (valueChange)="onQueryChange($event)"
+    (submit)="onQueryChange($event)"
+  />
+
+  <div class="relative inline-block">
+    <app-chip variant="dropdown" [label]="categoryLabel()" (clicked)="onToggleCategoryPicker()" />
+
+    @if (categoryPickerOpen()) {
+      <ul
+        data-testid="category-picker"
+        class="absolute left-0 top-full z-20 mt-1 w-48 overflow-hidden rounded-input border border-border-default bg-surface-elevated shadow-lg"
+      >
+        <li>
+          <button
+            type="button"
+            data-testid="category-option-all"
+            class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+            (click)="onClearCategory()"
+          >All categories</button>
+        </li>
+        @for (category of categories; track category.value) {
+          <li>
+            <button
+              type="button"
+              class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+              (click)="onSelectCategory(category.value)"
+            >{{ category.label }}</button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
+  <app-results-toolbar [resultCount]="results().length" />
+
+  <div class="flex flex-col gap-card-gap">
+    @for (event of results(); track event.id) {
+      <app-event-card-search-result
+        [event]="event"
+        (bookmarkToggle)="onBookmarkToggle($event)"
+        (detailsClick)="onOpenDetails($event)"
+        (registerClick)="onOpenDetails($event)"
+      />
+    }
+  </div>
+</div>

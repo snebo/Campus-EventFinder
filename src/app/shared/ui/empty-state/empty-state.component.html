@@ -1,0 +1,7 @@
+<div class="flex flex-col items-center gap-4 py-12 text-center">
+  <p class="text-subtitle text-text-secondary">{{ message() }}</p>
+
+  @if (ctaLabel(); as label) {
+    <app-button variant="outline" [label]="label" [fullWidth]="false" (clicked)="onCtaClick()" />
+  }
+</div>

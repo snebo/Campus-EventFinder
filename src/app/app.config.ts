@@ -19,6 +19,7 @@ import {
   Bookmark,
   BookmarkCheck,
   User,
+  ArrowLeft,
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -46,6 +47,7 @@ export const appConfig: ApplicationConfig = {
         Bookmark,
         BookmarkCheck,
         User,
+        ArrowLeft,
       })
     ),
   ]

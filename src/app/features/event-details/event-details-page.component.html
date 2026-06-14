@@ -1,0 +1,38 @@
+<div class="p-4">
+  <app-icon-button icon="ArrowLeft" ariaLabel="Go back" (clicked)="onBack()" />
+</div>
+
+@if (loaded()) {
+  @if (event(); as ev) {
+    <article class="flex flex-col gap-4 px-4 pb-4">
+      @if (ev.imageUrl; as imageUrl) {
+        <img [src]="imageUrl" alt="" class="aspect-video w-full rounded-card object-cover" />
+      } @else {
+        <app-image-placeholder aspectRatio="16/9" />
+      }
+
+      <h1 class="text-heading-1 text-text-primary">{{ ev.title }}</h1>
+
+      <div class="flex flex-col gap-2">
+        @if (ev.dateLabel; as dateLabel) {
+          <app-event-meta-row icon="Calendar" [text]="dateLabel" />
+        }
+        @if (ev.timeLabel; as timeLabel) {
+          <app-event-meta-row icon="Clock" [text]="timeLabel" />
+        }
+        @if (ev.location; as location) {
+          <app-event-meta-row icon="MapPin" [text]="location" />
+        }
+      </div>
+
+      <p class="text-input text-text-secondary">{{ ev.description }}</p>
+
+      <div class="mt-2 flex items-center gap-3">
+        <app-button class="flex-1" [label]="registerLabel()" (clicked)="onToggleRsvp()" />
+        <app-bookmark-button [saved]="!!ev.isBookmarked" (toggle)="onToggleBookmark()" />
+      </div>
+    </article>
+  } @else {
+    <p class="p-6 text-center text-text-secondary" data-testid="event-not-found">Event not found</p>
+  }
+}

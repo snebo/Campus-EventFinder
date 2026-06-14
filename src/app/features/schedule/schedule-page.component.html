@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-4 p-4">
+  <app-page-header title="My Schedule" subtitle="Events you've RSVP'd to and saved." />
+
+  <app-segmented-tabs [tabs]="tabs" [activeValue]="activeTab()" (tabChange)="onTabChange($event)" />
+
+  @if (groupedEvents().length > 0) {
+    <div class="flex flex-col gap-6">
+      @for (group of groupedEvents(); track group.dateLabel) {
+        <section class="flex flex-col gap-card-gap">
+          <app-date-group-header [label]="group.dateLabel" />
+          @for (event of group.events; track event.id) {
+            <app-event-schedule-card [event]="event" (viewDetailsClick)="onViewDetails($event)" />
+          }
+        </section>
+      }
+    </div>
+  } @else {
+    <app-empty-state [message]="emptyMessage()" ctaLabel="Browse events" ctaRouterLink="/search" />
+  }
+</div>
