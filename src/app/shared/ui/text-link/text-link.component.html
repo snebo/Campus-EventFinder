@@ -1,7 +1,7 @@
 <span class="relative inline-block">
   <a
     [routerLink]="routerLink()"
-    [class]="'inline-flex items-center gap-1.5 text-text-secondary hover:text-text-primary ' + weightClass()"
+    [class]="'inline-flex cursor-pointer items-center gap-1.5 text-text-secondary hover:text-text-primary underline ' + weightClass()"
     (click)="onClick($event)"
   >
     @if (icon() && iconPosition() === 'left') {

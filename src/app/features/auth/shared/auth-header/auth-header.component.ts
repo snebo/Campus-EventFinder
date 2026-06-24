@@ -1,3 +1,4 @@
+import { LogoSize } from './../../../../shared/ui/logo/logo.component';
 import { Component, input, signal } from '@angular/core';
 import { IconButtonComponent } from '../../../../shared/ui/icon-button/icon-button.component';
 import { LogoComponent } from '../../../../shared/ui/logo/logo.component';
@@ -14,6 +15,7 @@ const DEFAULT_INFO_TOOLTIP_TEXT =
 })
 export class AuthHeaderComponent {
   brandName = input<string>('Eventfindr');
+  lg: LogoSize = 'lg'
   showInfo = input<boolean>(true);
   infoTooltipText = input<string>(DEFAULT_INFO_TOOLTIP_TEXT);
 

@@ -4,5 +4,10 @@
       <lucide-icon name="LoaderCircle" [size]="20" />
     </span>
   }
+   @if (customIcon()) {
+    <img [src]="customIcon()" class="w-5 h-5" alt="icon" />
+  } @else if (icon()) {
+    <lucide-icon [name]="icon()"></lucide-icon>
+  }
   {{ label() }}
 </button>

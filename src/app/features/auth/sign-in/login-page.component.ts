@@ -19,7 +19,7 @@ function isAuthError(value: unknown): value is AuthError {
 
 @Component({
   selector: 'app-login-page',
-  imports: [AuthHeaderComponent, PageHeaderComponent, LoginFormComponent],
+  imports: [AuthHeaderComponent, LoginFormComponent],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

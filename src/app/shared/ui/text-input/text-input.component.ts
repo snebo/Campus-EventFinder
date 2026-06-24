@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export type TextInputType = 'text' | 'email' | 'password';
 
 const BASE_CLASSES =
-  'w-full rounded-input border bg-surface-elevated px-3 py-2 text-input text-text-primary placeholder-text-placeholder outline-none transition-colors';
+  'w-full border bg-surface-elevated px-3 py-4 text-input text-text-primary placeholder-text-placeholder outline-none transition-colors';
 
 @Component({
   selector: 'app-text-input',
@@ -36,7 +36,7 @@ export class TextInputComponent implements ControlValueAccessor {
 
   isDisabled = computed(() => this.disabled() || this.formDisabled());
 
-  borderClass = computed(() => (this.invalid() ? 'border-border-error' : this.focused() ? 'border-primary' : 'border-border-default'));
+  borderClass = computed(() => (this.invalid() ? 'border-border-error' : this.focused() ? 'border-primary' : 'border-black-100'));
 
   ringClass = computed(() => (this.focused() && !this.isDisabled() ? 'shadow-focus-ring' : ''));
 

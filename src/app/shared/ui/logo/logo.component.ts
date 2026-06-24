@@ -22,7 +22,7 @@ const TEXT_SIZE_CLASSES: Record<LogoSize, string> = {
   styleUrl: './logo.component.scss',
 })
 export class LogoComponent {
-  size = input<LogoSize>('md');
+  size = input<LogoSize>('md'); 
   brandName = input<string>('Eventfindr');
 
   iconSize = computed(() => ICON_SIZES[this.size()]);

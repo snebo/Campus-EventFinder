@@ -1,10 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-col gap-field-gap">
-  <app-form-field label="Email" for="login-email" [errorText]="emailErrorText()">
+  <app-form-field label="Email Address" for="login-email" [errorText]="emailErrorText()">
     <app-text-input
       id="login-email"
       type="email"
       formControlName="email"
-      placeholder="Enter your email"
+      placeholder="student@email.com"
       autocomplete="email"
       [invalid]="!!emailErrorText()"
     />
@@ -14,7 +14,7 @@
     <app-password-input
       id="login-password"
       formControlName="password"
-      placeholder="Enter your password"
+      placeholder="password"
       autocomplete="current-password"
       [invalid]="!!passwordErrorText()"
     />
@@ -25,12 +25,39 @@
   </div>
 
   <div class="relative">
-    <app-button label="Sign In" type="submit" [disabled]="!isFormValid()" [loading]="isSubmitting()" />
+    <app-button
+      label="Sign In"
+      type="submit"
+      [disabled]="!isFormValid()"
+      [loading]="isSubmitting()"
+    />
     <app-tooltip
       [visible]="showServerErrorTooltip()"
       [text]="serverError() ?? ''"
       variant="error"
       (dismiss)="onServerErrorDismiss()"
+    />
+  </div>
+
+  <div class="flex items-center gap-4 my-4">
+    <div class="flex-1 border-t border-gray-300"></div>
+    <span class="text-gray-500 text-sm">OR</span>
+    <div class="flex-1 border-t border-gray-300"></div>
+  </div>
+
+  <div class="relative">
+    <app-button
+      label="Continue with Google"
+      variant="outline"
+      customIcon="./assets/images/google_icon.png"
+      [disabled]="false"
+      (clicked)="onGoogleSignIn()"
+    />
+    <app-tooltip
+      [visible]="showComingSoon()"
+      text="Coming soon"
+      variant="info"
+      (dismiss)="onComingSoonDismiss()"
     />
   </div>
 

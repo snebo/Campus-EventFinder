@@ -32,6 +32,7 @@ export class LoginFormComponent {
   isSubmitting = input<boolean>(false);
   serverError = input<string | null>();
   fieldErrors = input<Record<string, string> | null>();
+   showComingSoon = signal(false);
 
   submitForm = output<LoginFormValue>();
   navigateToSignUp = output<void>();
@@ -93,6 +94,15 @@ export class LoginFormComponent {
   onServerErrorDismiss(): void {
     this.serverErrorDismissed.set(true);
   }
+
+   onGoogleSignIn(): void {
+    this.showComingSoon.set(true);
+  }
+
+  onComingSoonDismiss(): void {
+    this.showComingSoon.set(false);
+  }
+
 
   private errorTextFor(field: LoginField, label: string): string | null {
     const control = this.form.controls[field];

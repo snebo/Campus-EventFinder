@@ -17,7 +17,7 @@ export class TextLinkComponent {
   routerLink = input<string | string[]>();
   weight = input<TextLinkWeight>('regular');
   comingSoon = input<boolean>(false);
-  comingSoonText = input<string>('Coming soon');
+  comingSoonText = input<string>('Coming soon...');
   icon = input<string>();
   iconPosition = input<TextLinkIconPosition>('left');
 
