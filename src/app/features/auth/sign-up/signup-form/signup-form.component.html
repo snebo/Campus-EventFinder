@@ -3,18 +3,18 @@
     <app-text-input
       id="signup-full-name"
       formControlName="fullName"
-      placeholder="Enter your full name"
+      placeholder="Your name"
       autocomplete="name"
       [invalid]="!!fullNameErrorText()"
     />
   </app-form-field>
 
-  <app-form-field label="Email" for="signup-email" [errorText]="emailErrorText()">
+  <app-form-field label="Email address" for="signup-email" [errorText]="emailErrorText()">
     <app-text-input
       id="signup-email"
       type="email"
       formControlName="email"
-      placeholder="Enter your email"
+      placeholder="name@email.com"
       autocomplete="email"
       [invalid]="!!emailErrorText()"
     />
@@ -26,16 +26,48 @@
     [helperText]="passwordHelperText()"
     [helperTextVariant]="passwordHelperVariant()"
   >
-    <app-password-input id="signup-password" formControlName="password" placeholder="Create a password" autocomplete="new-password" />
+    <app-password-input
+      id="signup-password"
+      formControlName="password"
+      placeholder="enter a password"
+      autocomplete="new-password"
+    />
   </app-form-field>
 
   <div class="relative">
-    <app-button label="Sign Up" type="submit" [disabled]="!isFormValid()" [loading]="isSubmitting()" />
+    <app-button
+      label="Sign Up"
+      type="submit"
+      [disabled]="!isFormValid()"
+      [loading]="isSubmitting()"
+    />
     <app-tooltip
       [visible]="showServerErrorTooltip()"
       [text]="serverError() ?? ''"
       variant="error"
       (dismiss)="onServerErrorDismiss()"
+    />
+  </div>
+
+  <div class="flex items-center gap-4 my-4">
+    <div class="flex-1 border-t border-gray-300"></div>
+    <span class="text-gray-500 text-sm">OR</span>
+    <div class="flex-1 border-t border-gray-300"></div>
+  </div>
+
+  <div class="relative">
+    <app-button
+      label="Continue with Google"
+      variant="outline"
+      customIcon="./assets/images/google_icon.png"
+      [disabled]="false"
+      (clicked)="onGoogleSignIn()"
+    />
+    <app-tooltip
+      [visible]="showComingSoon()"
+      text="Coming soon"
+      variant="info"
+      (dismiss)="onComingSoonDismiss()"
     />
   </div>
 

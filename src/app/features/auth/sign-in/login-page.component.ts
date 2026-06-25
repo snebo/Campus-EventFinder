@@ -1,7 +1,5 @@
 import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-
-import { PageHeaderComponent } from '../../../shared/ui/page-header/page-header.component';
 import { AuthError, LoginFormValue } from '../data-access/auth.models';
 import { AuthService } from '../data-access/auth.service';
 import { AuthHeaderComponent } from '../shared/auth-header/auth-header.component';
@@ -14,7 +12,11 @@ const GENERIC_LOGIN_ERROR: AuthError = {
 };
 
 function isAuthError(value: unknown): value is AuthError {
-  return typeof value === 'object' && value !== null && typeof (value as { message?: unknown }).message === 'string';
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as { message?: unknown }).message === 'string'
+  );
 }
 
 @Component({
@@ -33,7 +35,9 @@ export class LoginPageComponent {
   protected readonly isSubmitting = signal(false);
   protected readonly submitError = signal<AuthError | null>(null);
 
-  protected readonly serverError = computed<string | null>(() => this.submitError()?.message ?? null);
+  protected readonly serverError = computed<string | null>(
+    () => this.submitError()?.message ?? null,
+  );
 
   protected readonly fieldErrors = computed<Record<string, string> | null>(() => {
     const errors = this.submitError()?.fieldErrors;

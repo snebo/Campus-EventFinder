@@ -2,7 +2,10 @@ import { Component, computed, effect, input, output, signal } from '@angular/cor
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
-import { FormFieldComponent, FormFieldHelperVariant } from '../../../../shared/ui/form-field/form-field.component';
+import {
+  FormFieldComponent,
+  FormFieldHelperVariant,
+} from '../../../../shared/ui/form-field/form-field.component';
 import { PasswordInputComponent } from '../../../../shared/ui/password-input/password-input.component';
 import { TextInputComponent } from '../../../../shared/ui/text-input/text-input.component';
 import { TooltipComponent } from '../../../../shared/ui/tooltip/tooltip.component';
@@ -32,13 +35,17 @@ export class SignupFormComponent {
   isSubmitting = input<boolean>(false);
   serverError = input<string | null>();
   fieldErrors = input<Record<string, string> | null>();
+  showComingSoon = signal(false);
 
   submitForm = output<SignupFormValue>();
   navigateToSignIn = output<void>();
 
   readonly form = new FormGroup({
     fullName: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
     password: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(PASSWORD_MIN_LENGTH)],
@@ -48,7 +55,9 @@ export class SignupFormComponent {
   private readonly serverErrorDismissed = signal(false);
   private readonly dismissedFieldErrors = signal<ReadonlySet<string>>(new Set());
 
-  showServerErrorTooltip = computed(() => this.serverError() != null && !this.serverErrorDismissed());
+  showServerErrorTooltip = computed(
+    () => this.serverError() != null && !this.serverErrorDismissed(),
+  );
 
   constructor() {
     effect(() => {
@@ -80,7 +89,9 @@ export class SignupFormComponent {
   }
 
   passwordHelperText(): string {
-    return this.form.controls.password.value.length >= PASSWORD_MIN_LENGTH ? 'Looks good' : 'Minimum 8 characters';
+    return this.form.controls.password.value.length >= PASSWORD_MIN_LENGTH
+      ? 'Looks good'
+      : 'Minimum 8 characters';
   }
 
   passwordHelperVariant(): FormFieldHelperVariant {
@@ -104,6 +115,14 @@ export class SignupFormComponent {
 
   onServerErrorDismiss(): void {
     this.serverErrorDismissed.set(true);
+  }
+
+  onGoogleSignIn(): void {
+    this.showComingSoon.set(true);
+  }
+
+  onComingSoonDismiss(): void {
+    this.showComingSoon.set(false);
   }
 
   private errorTextFor(field: SignupField, label: string): string | null {

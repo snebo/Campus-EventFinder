@@ -32,20 +32,25 @@ export class LoginFormComponent {
   isSubmitting = input<boolean>(false);
   serverError = input<string | null>();
   fieldErrors = input<Record<string, string> | null>();
-   showComingSoon = signal(false);
+  showComingSoon = signal(false);
 
   submitForm = output<LoginFormValue>();
   navigateToSignUp = output<void>();
 
   readonly form = new FormGroup({
-    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
     password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
   });
 
   private readonly serverErrorDismissed = signal(false);
   private readonly dismissedFieldErrors = signal<ReadonlySet<string>>(new Set());
 
-  showServerErrorTooltip = computed(() => this.serverError() != null && !this.serverErrorDismissed());
+  showServerErrorTooltip = computed(
+    () => this.serverError() != null && !this.serverErrorDismissed(),
+  );
 
   constructor() {
     effect(() => {
@@ -95,14 +100,13 @@ export class LoginFormComponent {
     this.serverErrorDismissed.set(true);
   }
 
-   onGoogleSignIn(): void {
+  onGoogleSignIn(): void {
     this.showComingSoon.set(true);
   }
 
   onComingSoonDismiss(): void {
     this.showComingSoon.set(false);
   }
-
 
   private errorTextFor(field: LoginField, label: string): string | null {
     const control = this.form.controls[field];

@@ -7,14 +7,18 @@ import { AuthService } from '../data-access/auth.service';
 import { AuthHeaderComponent } from '../shared/auth-header/auth-header.component';
 import { SignupFormComponent } from './signup-form/signup-form.component';
 
-const SIGNUP_SUBTITLE = 'Sign up to discover, RSVP to, and keep track of campus events.';
+const SIGNUP_SUBTITLE = 'Join the EventFinder community at University of Lagos.';
 
 const GENERIC_SIGNUP_ERROR: AuthError = {
   message: "We couldn't create your account. Please try again.",
 };
 
 function isAuthError(value: unknown): value is AuthError {
-  return typeof value === 'object' && value !== null && typeof (value as { message?: unknown }).message === 'string';
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    typeof (value as { message?: unknown }).message === 'string'
+  );
 }
 
 @Component({
@@ -33,7 +37,9 @@ export class SignupPageComponent {
   protected readonly isSubmitting = signal(false);
   protected readonly submitError = signal<AuthError | null>(null);
 
-  protected readonly serverError = computed<string | null>(() => this.submitError()?.message ?? null);
+  protected readonly serverError = computed<string | null>(
+    () => this.submitError()?.message ?? null,
+  );
 
   protected readonly fieldErrors = computed<Record<string, string> | null>(() => {
     const errors = this.submitError()?.fieldErrors;
