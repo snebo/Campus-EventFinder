@@ -4,7 +4,7 @@
     class="fixed right-4 top-4 z-50 w-max max-w-[min(20rem,calc(100vw_-_2rem))] whitespace-normal break-words rounded-tooltip px-3 py-2 text-tooltip shadow-lg"
     [class]="variantClass()"
   >
-    <div class="flex items-start gap-2">
+    <div class="flex items-center gap-2">
       <div class="flex-1">
         @if (text()) {
           {{ text() }}
@@ -13,7 +13,9 @@
         }
       </div>
       @if (showCloseButton()) {
-        <app-icon-button icon="X" ariaLabel="Dismiss" (clicked)="onCloseClick()" />
+        <div class="flex items-center shrink-0">
+          <app-icon-button icon="X" ariaLabel="Dismiss" (clicked)="onCloseClick()" />
+        </div>
       }
     </div>
   </div>

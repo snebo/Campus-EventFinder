@@ -28,6 +28,7 @@ export class ButtonComponent {
   fullWidth = input<boolean>(true);
   icon = input<string | undefined>(undefined);
   customIcon = input<string | undefined>(undefined);
+  textColor = input<string | undefined>(undefined);
 
   clicked = output<void>();
 
@@ -36,7 +37,7 @@ export class ButtonComponent {
   buttonClasses = computed(() =>
     [
       BASE_CLASSES,
-      VARIANT_CLASSES[this.variant()],
+      this.textColor() ? this.textColor() : VARIANT_CLASSES[this.variant()],
       this.fullWidth() ? 'w-full' : 'w-auto',
       this.isDisabled() ? 'opacity-50 cursor-not-allowed' : '',
     ]

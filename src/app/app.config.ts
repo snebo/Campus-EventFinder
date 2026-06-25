@@ -1,4 +1,8 @@
-import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideBrowserGlobalErrorListeners,
+} from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import {
@@ -8,7 +12,6 @@ import {
   Eye,
   EyeOff,
   X,
-  LoaderCircle,
   Menu,
   Search,
   ChevronDown,
@@ -20,6 +23,12 @@ import {
   BookmarkCheck,
   User,
   ArrowLeft,
+  LogOut,
+  LoaderCircle,
+  DoorOpen,
+  Pencil,
+  Lock,
+  ChevronRight,
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -48,7 +57,12 @@ export const appConfig: ApplicationConfig = {
         BookmarkCheck,
         User,
         ArrowLeft,
-      })
+        LogOut,
+        DoorOpen,
+        Pencil,
+        Lock,
+        ChevronRight,
+      }),
     ),
-  ]
+  ],
 };
