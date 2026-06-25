@@ -13,6 +13,11 @@ export const routes: Routes = [
     loadChildren: () => import('./features/auth/sign-in/login-page.routes').then((m) => m.LOGIN_ROUTES),
   },
   {
+    path: 'forgot-password',
+    loadChildren: () => import('./features/auth/forgot-password/forgot-password.routes').then((m) => m.LOGIN_ROUTES),
+  },
+
+  {
     path: '',
     component: AppShellComponent,
     canActivate: [authGuard],
