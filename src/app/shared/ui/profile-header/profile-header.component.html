@@ -1,0 +1,14 @@
+<div class="flex flex-col items-center text-center py-6">
+  <div class="relative w-24 h-24 mb-4">
+    <img [src]="avatarUrl()" class="w-full h-full rounded-2xl object-cover" alt="Profile Picture" />
+    <button
+      (click)="editAvatar.emit()"
+      class="absolute bottom-0 right-0 bg-black text-white p-1.5 rounded-full border-2 border-white shadow-md cursor-pointer hover:scale-105 transition-transform"
+    >
+      <lucide-icon name="Pencil" [size]="12" class="block"></lucide-icon>
+    </button>
+  </div>
+
+  <h2 class="text-xl font-bold text-gray-900 leading-tight">{{ name() }}</h2>
+  <p class="text-sm text-gray-500 mt-1">{{ subtitle() }}</p>
+</div>

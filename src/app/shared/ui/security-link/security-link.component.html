@@ -1,0 +1,13 @@
+<button
+  (click)="clicked.emit()"
+  class="flex items-center justify-between w-full bg-white border border-gray-200 px-4 py-4 shadow-sm cursor-pointer hover:bg-gray-50 transition-colors"
+>
+  <div class="flex items-center gap-3">
+    <div class="text-gray-700">
+      <lucide-icon [name]="icon()" [size]="20"></lucide-icon>
+    </div>
+    <span class="text-sm font-semibold text-gray-800">{{ label() }}</span>
+  </div>
+
+  <lucide-icon name="ChevronRight" [size]="18" class="text-gray-400"></lucide-icon>
+</button>

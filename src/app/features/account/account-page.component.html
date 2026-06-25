@@ -1,20 +1,66 @@
-<div class="flex flex-col gap-6 p-6">
-  <app-page-header title="Account" subtitle="Manage your Eventfindr account." />
-
+<div class="flex flex-col gap-6 p-4">
   @if (currentUser; as user) {
-    <dl class="flex flex-col gap-4">
-      <div>
-        <dt class="text-helper text-text-secondary">Name</dt>
-        <dd class="text-input text-text-primary" data-testid="account-full-name">{{ user.fullName }}</dd>
+    <app-tooltip
+      [visible]="showComingSoon()"
+      text="Coming Soon ..."
+      variant="info"
+      (dismiss)="onServerErrorDismiss()"
+    />
+    <div>
+      <app-profile-header
+        [avatarUrl]="avatar()"
+        [name]="currentUser?.fullName || ''"
+        [subtitle]="department()"
+        (editAvatar)="onEditAvatar()"
+      />
+
+      <div class="px-1">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Personal Info</h3>
       </div>
-      <div>
-        <dt class="text-helper text-text-secondary">Email</dt>
-        <dd class="text-input text-text-primary" data-testid="account-email">{{ user.email }}</dd>
+
+      <div class="-mx-4 mt-1 mb-4">
+        <hr class="border-gray-200 border-t-3" />
       </div>
-    </dl>
+
+      <div class="mt-4">
+        <app-edit-text-input label="Full Name" [(value)]="fullName" />
+        <app-edit-text-input label="Email Address" type="email" [(value)]="email" />
+        <app-edit-text-input label="Department" [(value)]="department" />
+
+        <div class="mt-6">
+          <app-button
+            label="Save"
+            variant="secondary"
+            class="!bg-slate-200 !text-slate-500 font-semibold"
+            [fullWidth]="true"
+            textColor="text-gray-400 border-gray-100 bg-[#cbd5e1] hover:bg-[#e2e8f0]"
+            (clicked)="onSave()"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="px-1 pb-2">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Security</h3>
+        <div class="-mx-4 mb-6 mt-1">
+          <hr class="border-gray-200 border-t-3" />
+        </div>
+        <app-security-link label="Change Password" icon="Lock" (clicked)="onChangePassword()" />
+      </div>
+    </div>
+
+    <div class="relative">
+      <app-button
+        label="Sign Out"
+        variant="outline"
+        icon="LogOut"
+        textColor="text-white border-red-200 bg-red-700 hover:bg-red-20"
+        [disabled]="false"
+        (clicked)="signOut()"
+      />
+    </div>
   } @else {
     <p class="text-text-secondary" data-testid="account-no-session">You are not signed in.</p>
   }
-
-  <app-button label="Sign Out" variant="outline" [fullWidth]="false" (clicked)="signOut()" />
 </div>
