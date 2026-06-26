@@ -2,6 +2,7 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, map, of, shareReplay, tap } from 'rxjs';
 
 import { MockApiService, MockUserEvents } from '../../../core/data-access/mock-api.service';
+import { EventDateFilter } from '../../../shared/models/date-filters.const';
 import { EventCategory, EventDetails, EventSummary, TrendingDetails } from '../../../shared/models/event.model';
 import { AuthService } from '../../auth/data-access/auth.service';
 
@@ -14,6 +15,8 @@ interface EventsStore {
 export interface EventsFilters {
   category?: EventCategory;
   query?: string;
+  date?: EventDateFilter;
+  location?: string;
 }
 
 export interface ScheduleGroup {
@@ -41,6 +44,16 @@ export class EventsService {
       const query = filters?.query?.trim().toLowerCase();
       if (query) {
         result = result.filter((event) => event.title.toLowerCase().includes(query));
+      }
+
+      if (filters?.date === 'today') {
+        const today = this.todayIso();
+        result = result.filter((event) => event.date === today);
+      }
+
+      const location = filters?.location;
+      if (location) {
+        result = result.filter((event) => event.location === location);
       }
 
       return this.sortByDateAsc(result);
@@ -74,6 +87,18 @@ export class EventsService {
     return event ? this.withUserState(event) : undefined;
   });
 }
+
+  getEventLocations(): Observable<string[]> {
+    return this.read(() => {
+      const locations = new Set<string>();
+      for (const event of this.allWithUserState()) {
+        if (event.location) {
+          locations.add(event.location);
+        }
+      }
+      return [...locations].sort((a, b) => a.localeCompare(b));
+    });
+  }
 
   getScheduleEvents(tab: 'rsvpd' | 'saved'): Observable<ScheduleGroup[]> {
     return this.read(() => {

@@ -8,3 +8,4 @@ export const EVENT_CATEGORIES: { value: EventCategory; label: string }[] = [
   { value: 'food', label: 'FOOD' },
   { value: 'academic', label: 'ACADEMIC' },
 ];
+
