@@ -11,6 +11,7 @@ import {
   LucideAngularModule,
   MapPin,
   Search,
+  X,
 } from 'lucide-angular';
 
 import { EventSummary } from '../../shared/models/event.model';
@@ -29,18 +30,20 @@ describe('SearchPageComponent', () => {
   let navigate: ReturnType<typeof vi.spyOn>;
   const eventsService = {
     getEvents: vi.fn().mockReturnValue(of(RESULTS)),
+    getEventLocations: vi.fn().mockReturnValue(of(['Main Bowl', 'Sports Complex'])),
     toggleBookmark: vi.fn(),
   };
 
   async function setup(initial: Record<string, string> = {}): Promise<void> {
     params$ = new BehaviorSubject<ParamMap>(convertToParamMap(initial));
     eventsService.getEvents.mockReturnValue(of(RESULTS));
+    eventsService.getEventLocations.mockReturnValue(of(['Main Bowl', 'Sports Complex']));
     eventsService.toggleBookmark.mockClear();
 
     await TestBed.configureTestingModule({
       imports: [
         SearchPageComponent,
-        LucideAngularModule.pick({ Bookmark, BookmarkCheck, Calendar, ChevronDown, LoaderCircle, MapPin, Search }),
+        LucideAngularModule.pick({ Bookmark, BookmarkCheck, Calendar, ChevronDown, LoaderCircle, MapPin, Search, X }),
       ],
       providers: [
         provideRouter([]),
@@ -56,23 +59,64 @@ describe('SearchPageComponent', () => {
     fixture.detectChanges();
   }
 
+  function chips() {
+    return fixture.debugElement.queryAll(By.css('app-chip'));
+  }
+
   it('seeds from query params and queries all events when none are present', async () => {
     await setup();
-    expect(eventsService.getEvents).toHaveBeenCalledWith({ category: undefined, query: undefined });
+    expect(eventsService.getEvents).toHaveBeenCalledWith({
+      category: undefined,
+      query: undefined,
+      date: undefined,
+      location: undefined,
+    });
     expect(fixture.debugElement.queryAll(By.css('app-event-card-search-result')).length).toBe(2);
+  });
+
+  it('renders date, location, and category filter chips with default dropdown labels', async () => {
+    await setup();
+    expect(chips().length).toBe(3);
+    expect(chips()[0].componentInstance.label()).toBe('DATE');
+    expect(chips()[1].componentInstance.label()).toBe('ALL LOCATIONS');
+    expect(chips()[2].componentInstance.label()).toBe('CATEGORY');
+    expect(chips().every((chip) => chip.componentInstance.variant() === 'dropdown')).toBe(true);
   });
 
   it('pre-selects the category and filters when arriving at /search?category=academic', async () => {
     await setup({ category: 'academic' });
-    expect(eventsService.getEvents).toHaveBeenCalledWith({ category: 'academic', query: undefined });
-    expect((fixture.debugElement.query(By.css('app-chip')).nativeElement as HTMLElement).textContent?.trim()).toBe(
-      'ACADEMIC',
-    );
+    expect(eventsService.getEvents).toHaveBeenCalledWith({
+      category: 'academic',
+      query: undefined,
+      date: undefined,
+      location: undefined,
+    });
+    expect(chips()[2].componentInstance.label()).toBe('ACADEMIC');
+    expect(chips()[2].componentInstance.variant()).toBe('dismissible');
+  });
+
+  it('pre-selects date and location filters from query params', async () => {
+    await setup({ date: 'today', location: 'Main Bowl' });
+    expect(eventsService.getEvents).toHaveBeenCalledWith({
+      category: undefined,
+      query: undefined,
+      date: 'today',
+      location: 'Main Bowl',
+    });
+    expect(chips()[0].componentInstance.label()).toBe('TODAY');
+    expect(chips()[0].componentInstance.variant()).toBe('dismissible');
+    expect(chips()[1].componentInstance.label()).toBe('Main Bowl');
+    expect(chips()[1].componentInstance.variant()).toBe('dismissible');
   });
 
   it('seeds the query from the q param', async () => {
     await setup({ q: 'sym' });
-    expect(eventsService.getEvents).toHaveBeenCalledWith({ category: undefined, query: 'sym' });
+    expect(eventsService.getEvents).toHaveBeenCalledWith({
+      category: undefined,
+      query: 'sym',
+      date: undefined,
+      location: undefined,
+    });
   });
 
   it('renders the results toolbar count', async () => {
@@ -92,24 +136,66 @@ describe('SearchPageComponent', () => {
     );
   });
 
+  it('toggles the date picker and updates the date param on selection', async () => {
+    await setup();
+    expect(fixture.debugElement.query(By.css('[data-testid="date-picker"]'))).toBeNull();
+
+    chips()[0].componentInstance.clicked.emit();
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('[data-testid="date-picker"]'))).toBeTruthy();
+
+    const options = fixture.debugElement.queryAll(By.css('[data-testid="date-picker"] button'));
+    (options[1].nativeElement as HTMLElement).click();
+
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { date: 'today' } }));
+  });
+
+  it('toggles the location picker and updates the location param on selection', async () => {
+    await setup();
+    chips()[1].componentInstance.clicked.emit();
+    fixture.detectChanges();
+
+    const options = fixture.debugElement.queryAll(By.css('[data-testid="location-picker"] button'));
+    (options[1].nativeElement as HTMLElement).click();
+
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { location: 'Main Bowl' } }));
+  });
+
   it('toggles the category picker and updates the category param on selection', async () => {
     await setup();
     expect(fixture.debugElement.query(By.css('[data-testid="category-picker"]'))).toBeNull();
 
-    fixture.debugElement.query(By.css('app-chip')).componentInstance.clicked.emit();
+    chips()[2].componentInstance.clicked.emit();
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('[data-testid="category-picker"]'))).toBeTruthy();
 
-    // First category option after "All categories" = entertainment.
     const options = fixture.debugElement.queryAll(By.css('[data-testid="category-picker"] button'));
     (options[1].nativeElement as HTMLElement).click();
 
     expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { category: 'entertainment' } }));
   });
 
+  it('clears the date param when the dismiss button is tapped on an active date chip', async () => {
+    await setup({ date: 'today' });
+    chips()[0].componentInstance.dismiss.emit();
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { date: null } }));
+  });
+
+  it('clears the location param when the dismiss button is tapped on an active location chip', async () => {
+    await setup({ location: 'Main Bowl' });
+    chips()[1].componentInstance.dismiss.emit();
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { location: null } }));
+  });
+
+  it('clears the category param when the dismiss button is tapped on an active category chip', async () => {
+    await setup({ category: 'academic' });
+    chips()[2].componentInstance.dismiss.emit();
+    expect(navigate).toHaveBeenCalledWith([], expect.objectContaining({ queryParams: { category: null } }));
+  });
+
   it('clears the category param when "All categories" is chosen', async () => {
     await setup({ category: 'academic' });
-    fixture.debugElement.query(By.css('app-chip')).componentInstance.clicked.emit();
+    chips()[2].componentInstance.clicked.emit();
     fixture.detectChanges();
 
     (fixture.debugElement.query(By.css('[data-testid="category-option-all"]')).nativeElement as HTMLElement).click();

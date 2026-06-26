@@ -7,33 +7,120 @@
     (submit)="onQueryChange($event)"
   />
 
-  <div class="relative inline-block">
-    <app-chip variant="dropdown" [label]="categoryLabel()" (clicked)="onToggleCategoryPicker()" />
+  <div class="flex flex-wrap gap-2 pb-1">
+    <div class="relative inline-block shrink-0">
+      @if (activeDate()) {
+        <app-chip
+          variant="dismissible"
+          [label]="dateLabel()"
+          (clicked)="onToggleDatePicker()"
+          (dismiss)="onClearDate()"
+        />
+      } @else {
+        <app-chip variant="dropdown" [label]="dateLabel()" (clicked)="onToggleDatePicker()" />
+      }
 
-    @if (categoryPickerOpen()) {
-      <ul
-        data-testid="category-picker"
-        class="absolute left-0 top-full z-20 mt-1 w-48 overflow-hidden rounded-input border border-border-default bg-surface-elevated shadow-lg"
-      >
-        <li>
-          <button
-            type="button"
-            data-testid="category-option-all"
-            class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
-            (click)="onClearCategory()"
-          >All categories</button>
-        </li>
-        @for (category of categories; track category.value) {
+      @if (datePickerOpen()) {
+        <ul
+          data-testid="date-picker"
+          class="absolute left-0 top-full z-20 mt-1 w-48 overflow-hidden rounded-input border border-border-default bg-surface-elevated shadow-lg"
+        >
           <li>
             <button
               type="button"
+              data-testid="date-option-all"
               class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
-              (click)="onSelectCategory(category.value)"
-            >{{ category.label }}</button>
+              (click)="onClearDate()"
+            >All dates</button>
           </li>
-        }
-      </ul>
-    }
+          @for (dateFilter of dateFilters; track dateFilter.value) {
+            <li>
+              <button
+                type="button"
+                class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+                (click)="onSelectDate(dateFilter.value)"
+              >{{ dateFilter.label }}</button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="relative inline-block shrink-0">
+      @if (activeLocation()) {
+        <app-chip
+          variant="dismissible"
+          [label]="locationLabel()"
+          (clicked)="onToggleLocationPicker()"
+          (dismiss)="onClearLocation()"
+        />
+      } @else {
+        <app-chip variant="dropdown" [label]="locationLabel()" (clicked)="onToggleLocationPicker()" />
+      }
+
+      @if (locationPickerOpen()) {
+        <ul
+          data-testid="location-picker"
+          class="absolute left-0 top-full z-20 mt-1 min-w-48 overflow-hidden rounded-input border border-border-default bg-surface-elevated shadow-lg"
+        >
+          <li>
+            <button
+              type="button"
+              data-testid="location-option-all"
+              class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+              (click)="onClearLocation()"
+            >All locations</button>
+          </li>
+          @for (location of locations(); track location) {
+            <li>
+              <button
+                type="button"
+                class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+                (click)="onSelectLocation(location)"
+              >{{ location }}</button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+
+    <div class="relative inline-block shrink-0">
+      @if (activeCategory()) {
+        <app-chip
+          variant="dismissible"
+          [label]="categoryLabel()"
+          (clicked)="onToggleCategoryPicker()"
+          (dismiss)="onClearCategory()"
+        />
+      } @else {
+        <app-chip variant="dropdown" [label]="categoryLabel()" (clicked)="onToggleCategoryPicker()" />
+      }
+
+      @if (categoryPickerOpen()) {
+        <ul
+          data-testid="category-picker"
+          class="absolute left-0 top-full z-20 mt-1 w-48 overflow-hidden rounded-input border border-border-default bg-surface-elevated shadow-lg"
+        >
+          <li>
+            <button
+              type="button"
+              data-testid="category-option-all"
+              class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+              (click)="onClearCategory()"
+            >All categories</button>
+          </li>
+          @for (category of categories; track category.value) {
+            <li>
+              <button
+                type="button"
+                class="block w-full px-3 py-2 text-left text-input text-text-primary hover:bg-surface"
+                (click)="onSelectCategory(category.value)"
+              >{{ category.label }}</button>
+            </li>
+          }
+        </ul>
+      }
+    </div>
   </div>
 
   <app-results-toolbar [resultCount]="results().length" />

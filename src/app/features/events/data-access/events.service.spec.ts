@@ -45,6 +45,7 @@ const EVENTS: EventDetails[] = [
 function buildData(): MockEventsData {
   return {
     events: EVENTS,
+    trending: [],
     userEvents: {
       'user-1': { rsvpd: ['evt-b', 'evt-a', 'evt-c', 'evt-past'], saved: ['evt-a'] },
       'user-2': { rsvpd: [], saved: [] },
@@ -94,6 +95,56 @@ describe('EventsService', () => {
 
     it('filters by case-insensitive title substring', () => {
       expect(sync(service.getEvents({ query: 'sym' })).map((e) => e.id)).toEqual(['evt-a']);
+    });
+
+    it('filters by today date', () => {
+      const today = new Date().toISOString().slice(0, 10);
+      const events = EVENTS.map((event) =>
+        event.id === 'evt-a' ? { ...event, date: today } : event,
+      );
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: MockApiService, useValue: { getEventsData: () => of({ ...buildData(), events }) } },
+          { provide: AuthService, useValue: { getSession: () => ({ user: { id: 'user-1' } }) } },
+        ],
+      });
+      const scoped = TestBed.inject(EventsService);
+      expect(sync(scoped.getEvents({ date: 'today' })).map((e) => e.id)).toEqual(['evt-a']);
+    });
+
+    it('filters by exact location', () => {
+      const events = EVENTS.map((event) =>
+        event.id === 'evt-a' ? { ...event, location: 'Hall A' } : event,
+      );
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: MockApiService, useValue: { getEventsData: () => of({ ...buildData(), events }) } },
+          { provide: AuthService, useValue: { getSession: () => ({ user: { id: 'user-1' } }) } },
+        ],
+      });
+      const scoped = TestBed.inject(EventsService);
+      expect(sync(scoped.getEvents({ location: 'Hall A' })).map((e) => e.id)).toEqual(['evt-a']);
+    });
+  });
+
+  describe('getEventLocations', () => {
+    it('returns unique sorted locations from events', () => {
+      const events = [
+        { ...EVENTS[0], location: 'Zeta Hall' },
+        { ...EVENTS[1], location: 'Alpha Hall' },
+        { ...EVENTS[2], location: 'Alpha Hall' },
+      ];
+      TestBed.resetTestingModule();
+      TestBed.configureTestingModule({
+        providers: [
+          { provide: MockApiService, useValue: { getEventsData: () => of({ ...buildData(), events }) } },
+          { provide: AuthService, useValue: { getSession: () => ({ user: { id: 'user-1' } }) } },
+        ],
+      });
+      const scoped = TestBed.inject(EventsService);
+      expect(sync(scoped.getEventLocations())).toEqual(['Alpha Hall', 'Zeta Hall']);
     });
   });
 
