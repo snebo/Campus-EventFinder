@@ -83,4 +83,9 @@ export class AuthService {
     window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
     return session;
   }
+
+   sendPasswordReset (_email: string): void {
+    // MVP: no backend — caller shows success UI
+   }
+  
 }
