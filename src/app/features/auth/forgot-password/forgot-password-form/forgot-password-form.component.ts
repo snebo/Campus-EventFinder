@@ -4,7 +4,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 import { FormFieldComponent } from '../../../../shared/ui/form-field/form-field.component';
 import { TextInputComponent } from '../../../../shared/ui/text-input/text-input.component';
-import { AuthFooterLinkComponent } from '../../shared/auth-footer-link/auth-footer-link.component';
 import { ForgotPasswordFormValue } from '../../data-access/auth.models';
 
 @Component({
@@ -14,7 +13,6 @@ import { ForgotPasswordFormValue } from '../../data-access/auth.models';
     FormFieldComponent,
     TextInputComponent,
     ButtonComponent,
-    AuthFooterLinkComponent,
   ],
   templateUrl: './forgot-password-form.component.html',
   styleUrl: './forgot-password-form.component.scss',

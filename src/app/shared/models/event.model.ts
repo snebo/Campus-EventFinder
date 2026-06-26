@@ -17,5 +17,9 @@ export interface EventSummary {
 }
 
 export interface EventDetails extends EventSummary {
-  description: string;
+  description?: string;
+}
+export interface TrendingDetails extends EventSummary{
+  attendeeLabel: string;
+  when: string;
 }
