@@ -1,7 +1,7 @@
-<article class="overflow-hidden rounded-card border border-border-default bg-surface-elevated">
+<article class="overflow-hidden min-w-screen w-[450px] rounded-card border border-border-default bg-surface-elevated">
   <div class="relative">
     @if (event().imageUrl; as imageUrl) {
-      <img [src]="imageUrl" alt="" class="aspect-video w-full object-cover" />
+      <img [src]="imageUrl" alt="" class="aspect-video object-cover" />
     } @else {
       <app-image-placeholder aspectRatio="16/9" />
     }

@@ -215,6 +215,70 @@
       "description": "A previous edition of the carnival bringing Lagos street-food culture to campus."
     }
   ],
+  
+  "trending": [
+    {
+      "id": "trnd-01",
+      "title": "Inter-Faculty Sports Competition",
+      "category": "sports",
+      "imageUrl": "https://picsum.photos/seed/trnd-01/800/450",
+      "dateLabel": "This Weekend",
+      "timeLabel": "10:00 AM - 5:00 PM",
+      "location": "Sports Complex",
+      "date": "2026-10-26",
+      "attendeeLabel": "500+ Going",
+      "description": "The biggest multi-sport showdown of the semester. Cheer on your faculty across football, athletics, and more."
+    },
+    {
+      "id": "trnd-02",
+      "title": "Jollof Festival: Lagoon Front",
+      "category": "food",
+      "imageUrl": "https://picsum.photos/seed/trnd-02/800/450",
+      "dateLabel": "Friday",
+      "timeLabel": "12:00 PM - 8:00 PM",
+      "location": "Lagoon Front, Unilag",
+      "date": "2026-10-30",
+      "attendeeLabel": "300+ Attending",
+      "description": "A campus-wide cook-off and tasting event celebrating Nigeria's most debated dish. Bring your appetite."
+    },
+    {
+      "id": "trnd-03",
+      "title": "Career Fair 2026",
+      "category": "professional",
+      "imageUrl": "https://picsum.photos/seed/trnd-03/800/450",
+      "dateLabel": "Next Week",
+      "timeLabel": "9:00 AM - 4:00 PM",
+      "location": "Jelili Omotola Hall",
+      "date": "2026-11-03",
+      "attendeeLabel": "400+ Attending",
+      "description": "Meet recruiters from leading companies, attend CV clinics, and explore internship and graduate opportunities."
+    },
+    {
+      "id": "trnd-04",
+      "title": "Unilag Music Festival",
+      "category": "entertainment",
+      "imageUrl": "https://picsum.photos/seed/trnd-04/800/450",
+      "dateLabel": "OCT 24",
+      "timeLabel": "6:00 PM - 11:00 PM",
+      "location": "Main Bowl",
+      "date": "2026-10-24",
+      "attendeeLabel": "600+ Interested",
+      "description": "An evening of live performances from student bands and special guest artists. Food vendors and merch stalls on site."
+    },
+    {
+      "id": "trnd-05",
+      "title": "AI & Robotics Expo",
+      "category": "academic",
+      "imageUrl": "https://picsum.photos/seed/trnd-05/800/450",
+      "dateLabel": "Next Month",
+      "timeLabel": "10:00 AM - 4:00 PM",
+      "location": "Engineering Complex",
+      "date": "2026-11-10",
+      "attendeeLabel": "250+ Going",
+      "description": "Demonstrations of student-built robots and AI projects, plus talks on the future of automation."
+    }
+  ],
+
   "userEvents": {
     "user-1": {
       "rsvpd": [

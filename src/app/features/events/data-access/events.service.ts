@@ -2,11 +2,12 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Observable, map, of, shareReplay, tap } from 'rxjs';
 
 import { MockApiService, MockUserEvents } from '../../../core/data-access/mock-api.service';
-import { EventCategory, EventDetails, EventSummary } from '../../../shared/models/event.model';
+import { EventCategory, EventDetails, EventSummary, TrendingDetails } from '../../../shared/models/event.model';
 import { AuthService } from '../../auth/data-access/auth.service';
 
 interface EventsStore {
   events: EventDetails[];
+  trending: TrendingDetails[];
   userEvents: Record<string, MockUserEvents>;
 }
 
@@ -54,12 +55,25 @@ export class EventsService {
     });
   }
 
-  getEventById(id: string): Observable<EventDetails | undefined> {
+  getTrendingEvents(limit?: number): Observable<TrendingDetails[]> {
     return this.read(() => {
-      const event = this.store()!.events.find((candidate) => candidate.id === id);
-      return event ? this.withUserState(event) : undefined;
+      const trending = this.store()!.trending.map((event) => this.withUserState(event));
+      return limit != null ? trending.slice(0, limit) : trending;
     });
   }
+
+  getEventById(id: string): Observable<EventDetails | undefined> {
+  return this.read(() => {
+    const store = this.store();
+    if (!store) return undefined;
+
+    const event =
+      store.events.find((candidate) => candidate.id === id) ??
+      store.trending.find((candidate) => candidate.id === id);
+
+    return event ? this.withUserState(event) : undefined;
+  });
+}
 
   getScheduleEvents(tab: 'rsvpd' | 'saved'): Observable<ScheduleGroup[]> {
     return this.read(() => {
@@ -98,6 +112,7 @@ export class EventsService {
         tap((data) =>
           this.store.set({
             events: data.events.map((event) => ({ ...event })),
+            trending: data.trending.map((trending) => ({ ...trending })),
             userEvents: this.cloneUserEvents(data.userEvents),
           }),
         ),
@@ -141,6 +156,7 @@ export class EventsService {
 
     this.store.set({
       events: store.events,
+      trending: store.trending,
       userEvents: {
         ...store.userEvents,
         [userId]: { ...current, [list]: nextList },

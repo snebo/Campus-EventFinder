@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, OnInit, inject, signal } from '@ang
 import { Router } from '@angular/router';
 
 import { EVENT_CATEGORIES } from '../../shared/models/categories.const';
-import { EventCategory, EventSummary } from '../../shared/models/event.model';
+import { EventCategory, EventSummary, TrendingDetails } from '../../shared/models/event.model';
 import { PageHeaderComponent } from '../../shared/ui/page-header/page-header.component';
 import { SearchBarComponent } from '../../shared/ui/search-bar/search-bar.component';
 import { SectionHeaderComponent } from '../../shared/ui/section-header/section-header.component';
@@ -10,6 +10,7 @@ import { ChipComponent } from '../../shared/ui/chip/chip.component';
 import { AuthService } from '../auth/data-access/auth.service';
 import { EventsService } from '../events/data-access/events.service';
 import { EventCardFeaturedComponent } from './event-card-featured/event-card-featured.component';
+import { TrendingCardComponent } from './trending-card/trending-card.component';
 
 @Component({
   selector: 'app-home-page',
@@ -19,6 +20,7 @@ import { EventCardFeaturedComponent } from './event-card-featured/event-card-fea
     ChipComponent,
     SectionHeaderComponent,
     EventCardFeaturedComponent,
+    TrendingCardComponent,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.scss',
@@ -34,9 +36,11 @@ export class HomePageComponent implements OnInit {
 
   protected readonly activeCategory = signal<EventCategory | 'all'>('all');
   protected readonly upcomingEvents = signal<EventSummary[]>([]);
+  protected readonly trendingEvents = signal<TrendingDetails[]>([]);
 
   ngOnInit(): void {
     this.eventsService.getUpcomingEvents(8).subscribe((events) => this.upcomingEvents.set(events));
+    this.eventsService.getTrendingEvents(5).subscribe((trending) => this.trendingEvents.set(trending));
   }
 
   onSearchSubmit(query: string): void {

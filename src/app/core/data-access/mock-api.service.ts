@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Observable, delay, map, shareReplay } from 'rxjs';
 
-import { EventDetails } from '../../shared/models/event.model';
+import { EventDetails, TrendingDetails } from '../../shared/models/event.model';
 
 export interface MockUser {
   id: string;
@@ -19,12 +19,14 @@ export interface MockUserEvents {
 
 export interface MockEventsData {
   events: EventDetails[];
+  trending: TrendingDetails[];
   userEvents: Record<string, MockUserEvents>;
 }
 
 interface MockDb {
   users: MockUser[];
   events?: EventDetails[];
+  trending?: TrendingDetails[];
   userEvents?: Record<string, MockUserEvents>;
 }
 
@@ -52,10 +54,11 @@ function generateId(prefix: string): string {
 export class MockApiService {
   private readonly users = signal<MockUser[]>([]);
   private readonly events = signal<EventDetails[]>([]);
+  private readonly trending = signal<TrendingDetails[]>([]);
   private readonly userEvents = signal<Record<string, MockUserEvents>>({});
   private rawLoad$: Observable<void> | null = null;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) { }
 
   load(): Observable<void> {
     return this.ensureLoaded().pipe(delay(MOCK_DELAY_MS));
@@ -63,7 +66,8 @@ export class MockApiService {
 
   getEventsData(): Observable<MockEventsData> {
     return this.ensureLoaded().pipe(
-      map(() => ({ events: this.events(), userEvents: this.userEvents() })),
+      map(() => ({ events: this.events(), trending: this.trending(), userEvents: this.userEvents() }))
+      ,
       delay(MOCK_DELAY_MS),
     );
   }
@@ -103,6 +107,7 @@ export class MockApiService {
         map((db) => {
           this.users.set(db.users);
           this.events.set(db.events ?? []);
+          this.trending.set(db.trending ?? []);
           this.userEvents.set(db.userEvents ?? {});
         }),
         shareReplay(1),
