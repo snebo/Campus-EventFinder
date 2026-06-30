@@ -11,19 +11,26 @@
       class="absolute inset-y-0 left-0 flex w-72 max-w-[80%] flex-col gap-4 bg-surface p-4 shadow-lg transition-transform"
     >
       <div class="flex items-center justify-between">
-        <app-logo />
+        <app-logo [hideIcon]="hideIcon" />
         <app-icon-button icon="X" ariaLabel="Close menu" (clicked)="close.emit()" />
       </div>
 
-      <div class="flex flex-col">
-        @for (link of links(); track link.routerLink) {
-          <app-nav-link-item
-            [label]="link.label"
-            [routerLink]="link.routerLink"
-            [active]="link.routerLink === activeRoute()"
-            (click)="close.emit()"
-          />
-        }
+      <div class="flex flex-col justify-between h-full">
+        <div class="flex flex-col">
+          @for (link of links(); track link.routerLink) {
+            <app-nav-link-item
+              [label]="link.label"
+              [lastItem]="link.lastItem"
+              [routerLink]="link.routerLink"
+              [active]="link.routerLink === activeRoute()"
+              (click)="close.emit()"
+              [customIcon]="link.icon"
+            />
+          }
+        </div>
+        <app-user-profile-card
+          [user]="getCurrentUser()"
+        />
       </div>
     </nav>
   </div>

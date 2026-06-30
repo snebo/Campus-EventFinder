@@ -77,7 +77,7 @@ export class AuthService {
 
   private persistSession(user: MockUser): AuthSession {
     const session: AuthSession = {
-      user: { id: user.id, fullName: user.fullName, email: user.email },
+      user: { id: user.id, fullName: user.fullName, email: user.email, memberType: user.memberType },
       token: user.token,
     };
     window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(session));
@@ -87,5 +87,5 @@ export class AuthService {
    sendPasswordReset (_email: string): void {
     // MVP: no backend — caller shows success UI
    }
-  
+
 }

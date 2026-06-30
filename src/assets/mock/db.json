@@ -2,17 +2,19 @@
   "users": [
     {
       "id": "user-1",
-      "fullName": "Ada Eze",
-      "email": "ada.eze@unilag.edu.ng",
-      "password": "Password123",
-      "token": "mock-token-user-1"
+      "fullName": "Stefano Nebo",
+      "email": "example@mail.com",
+      "password": "Password",
+      "token": "mock-token-user-1",
+      "memberType": "Pro Member"
     },
     {
       "id": "user-2",
       "fullName": "Tunde Bakare",
       "email": "tunde.bakare@unilag.edu.ng",
       "password": "Password123",
-      "token": "mock-token-user-2"
+      "token": "mock-token-user-2",
+      "memberType": "Pro Member"
     }
   ],
   "events": [
@@ -215,7 +217,7 @@
       "description": "A previous edition of the carnival bringing Lagos street-food culture to campus."
     }
   ],
-  
+
   "trending": [
     {
       "id": "trnd-01",

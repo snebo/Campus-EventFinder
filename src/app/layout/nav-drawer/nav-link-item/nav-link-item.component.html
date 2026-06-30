@@ -1,4 +1,4 @@
 <a
   [routerLink]="routerLink()"
-  [class]="'block border-b border-border-default py-3 text-input ' + labelClass()"
->{{ label() }}</a>
+  [class]="'block py-4 px-1 pl-4 text-input flex gap-4 ' + labelClass() + lastItemClass()"
+> @if(customIcon()) {<img [src]="customIcon()" [class]="'w-5 h-5 '+invertImageClass()" alt="icon" />}{{ label() }}</a>

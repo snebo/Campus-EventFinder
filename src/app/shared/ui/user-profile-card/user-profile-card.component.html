@@ -1,0 +1,36 @@
+<div
+  [class.cursor-pointer]="clickable()"
+  [class.hover:bg-surface-hover]="clickable()"
+  (click)="onCardClick()"
+  class="w-full flex items-center gap-3 border-1 border-[#CFC4C5] bg-[#DADADA] p-3 transition-colors duration-200"
+  [attr.role]="clickable() ? 'button' : null"
+  [attr.tabindex]="clickable() ? 0 : null"
+  [attr.aria-label]="clickable() ? 'Open profile for ' + user().fullName : null"
+>
+  <!-- Avatar -->
+  <div
+    class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded border border-1 border-[#CFC4C5] bg-[bg-[#DADADA]"
+  >
+    @if (user().avatarUrl) {
+      <img
+        [src]="user().avatarUrl"
+        [alt]="user().fullName"
+        class="h-full w-full object-cover"
+      />
+    } @else {
+      <span class="text-sm font-semibold text-text-secondary">
+        {{ initials }}
+      </span>
+    }
+  </div>
+
+  <!-- User Info -->
+  <div class="min-w-0 flex-1">
+    <p class="truncate text-sm font-semibold text-text-primary">
+      {{ user().fullName }}
+    </p>
+    <p class="truncate text-xs text-text-secondary">
+      {{ user().memberType }}
+    </p>
+  </div>
+</div>

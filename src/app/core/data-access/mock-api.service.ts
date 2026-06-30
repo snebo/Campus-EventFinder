@@ -9,6 +9,7 @@ export interface MockUser {
   fullName: string;
   email: string;
   password: string;
+  memberType?: string;
   token: string;
 }
 
@@ -34,6 +35,7 @@ interface CreateUserValue {
   fullName: string;
   email: string;
   password: string;
+  memberType?: string;
 }
 
 const DB_URL = 'assets/mock/db.json';

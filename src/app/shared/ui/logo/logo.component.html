@@ -1,4 +1,11 @@
 <span class="inline-flex items-center gap-2">
-  <lucide-icon name="GraduationCap" [size]="iconSize()" class="border border-black-100 p-[0.1px] border-box" />
-  <span [class]="textSizeClass()">{{ brandName() }}</span>
+  @if (hideIcon()) {
+  } @else {
+    <lucide-icon name="GraduationCap" [size]="iconSize()" class="border border-black-100 p-[0.1px] border-box" />
+  }
+  @if (hideIconText()){
+
+  }@else{
+    <span [class]="textSizeClass()">{{ brandName() }}</span>
+  }
 </span>
