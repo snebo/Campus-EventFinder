@@ -15,8 +15,10 @@ export class NavLinkItemComponent {
   lastItem = input<boolean>(false);
 
   labelClass = computed(() =>
-    this.active() ? 'font-semibold text-text-primary border rounded-sm bg-black text-white' : 'text-text-secondary',
+    this.active()
+      ? 'font-semibold text-text-primary border rounded-sm bg-black text-white'
+      : 'text-text-secondary bg-none hover:bg-[#e5e5e5] transition duration-200 ease-in-out',
   );
-  invertImageClass = computed(()=>(this.active()? 'invert' : ''))
+  invertImageClass = computed(() => (this.active() ? 'invert' : ''));
   lastItemClass = computed(() => (this.lastItem() ? ' border-t border-border-default my-4' : ''));
 }
