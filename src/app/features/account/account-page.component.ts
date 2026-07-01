@@ -53,7 +53,7 @@ export class AccountPageComponent {
     { Topic: 'Saved', Value: 3 },
     { Topic: 'RSVP', Value: 5 },
   ]);
-  protected interests = signal(['Tech', 'Music', 'Sports']);
+  protected interests    = signal(['Tech', 'Music', 'Sports']);
 
   isPersonalInfoAccordionOpen = false;
   isSecurityInfoAccordionOpen = false;

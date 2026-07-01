@@ -224,3 +224,8 @@
     </div>
   </form>
 </div>
+@if (showSuccessModal()) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 transition ease-in-out">
+    <app-create-event-success-modal heading="Event Created Successfully" subheading="Your campus event is now live and visible to other students" [eventId]="getEventId()!"/>
+  </div>
+}

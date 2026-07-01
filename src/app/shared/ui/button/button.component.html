@@ -1,4 +1,4 @@
-<button [type]="type()" [disabled]="isDisabled()" [class]="buttonClasses()" (click)="onClick()">
+<button [type]="type()" [disabled]="isDisabled()" [class]="buttonClasses()" (click)="onClick()" [routerLink]="routerLink()">
   @if (loading()) {
     <span class="animate-spin" data-testid="button-spinner">
       <lucide-icon name="LoaderCircle" [size]="20" />

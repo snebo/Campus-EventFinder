@@ -1,5 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 import { LucideAngularModule } from 'lucide-angular';
+import { RouterLink } from '@angular/router';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline';
 export type ButtonHtmlType = 'button' | 'submit';
@@ -15,7 +16,7 @@ const VARIANT_CLASSES: Record<ButtonVariant, string> = {
 
 @Component({
   selector: 'app-button',
-  imports: [LucideAngularModule],
+  imports: [LucideAngularModule, RouterLink],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss',
 })
@@ -29,6 +30,8 @@ export class ButtonComponent {
   icon = input<string | undefined>(undefined);
   customIcon = input<string | undefined>(undefined);
   textColor = input<string | undefined>(undefined);
+  rounded = input<boolean>(false);
+  routerLink = input<string>();
 
   clicked = output<void>();
 
@@ -40,6 +43,7 @@ export class ButtonComponent {
       this.textColor() ? this.textColor() : VARIANT_CLASSES[this.variant()],
       this.fullWidth() ? 'w-full' : 'w-auto',
       this.isDisabled() ? 'opacity-50 cursor-not-allowed' : '',
+      this.rounded() ? 'rounded-lg' : '',
     ]
       .filter(Boolean)
       .join(' '),

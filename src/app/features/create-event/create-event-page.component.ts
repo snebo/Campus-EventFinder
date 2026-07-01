@@ -16,6 +16,7 @@ import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { EVENT_CATEGORIES, EventCategory } from '../../shared/models/categories.const';
 import { getValidationErrorMessage } from '../../shared/utils/form-errors';
 import { EventDetails } from '../../shared/models/event.model';
+import { SuccessModalComponent } from './success-modal/success-modal.component';
 
 // Type definitions for form controls
 interface CreateEventFormValue {
@@ -38,6 +39,7 @@ interface CreateEventFormValue {
     PageHeaderComponent,
     FormFieldComponent,
     ButtonComponent,
+    SuccessModalComponent
   ],
   templateUrl: './create-event-page.component.html',
   styleUrl: './create-event-page.component.scss',
@@ -46,6 +48,8 @@ interface CreateEventFormValue {
 export class CreateEventPageComponent {
   private readonly eventsService = inject(EventsService);
   private readonly router = inject(Router);
+
+  eventCreated = false;
 
   // Constants
   protected readonly categories = EVENT_CATEGORIES;
@@ -56,6 +60,8 @@ export class CreateEventPageComponent {
   protected readonly isSubmitting = signal(false);
   protected readonly coverImagePreview = signal<string | null>(null);
   protected readonly imageError = signal<string | null>(null);
+
+  eventId = signal<string>('')
 
   // Form group with explicit type
   readonly form = this.createForm();
@@ -78,6 +84,7 @@ export class CreateEventPageComponent {
     capacity: FormControl<number | null>;
     admission: FormControl<'free' | 'paid'>;
     imageUrl: FormControl<string>;
+
   }> {
     return new FormGroup({
       eventName: new FormControl('', {
@@ -199,9 +206,11 @@ export class CreateEventPageComponent {
       const eventDetails = this.createEventDetails(formValue);
 
       this.eventsService.createEvent(eventDetails).subscribe({
-        next: () => {
+        next: (createdEvent) => {
           this.isSubmitting.set(false);
-          void this.router.navigate(['/home']);
+          this.eventCreated = true;
+          this.eventId.set(createdEvent.id);
+          // void this.router.navigate(['/home']);
         },
         error: (err) => {
           this.isSubmitting.set(false);
@@ -312,5 +321,14 @@ export class CreateEventPageComponent {
     if (this.form.dirty && !this.isSubmitting()) {
       $event.returnValue = true;
     }
+  }
+
+  showSuccessModal(): boolean {
+    console.log("event modal status", this.eventCreated)
+    return this.eventCreated
+  }
+
+  getEventId():string | null {
+    return this.eventId();
   }
 }

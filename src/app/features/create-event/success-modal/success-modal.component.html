@@ -1,0 +1,27 @@
+<div class="w-[348px] h-[406px] rounded-xl bg-white flex flex-col items-center justify-center" >
+  <div class="border-2 border-black rounded-full w-22 h-22 flex items-center justify-center">
+    <lucide-icon class="w-14 h-14"
+      [img]="CheckIcon"
+    ></lucide-icon>
+  </div>
+  <div class="p-6 text-center">
+    <h3 class="font-bold text-black text-xl">{{heading()}}</h3>
+    <p class="text-md font-normal-">{{subheading()}}</p>
+  </div>
+  <div class="px-6 w-full">
+    <app-button
+      label="View Event"
+      [rounded]="true"
+      [routerLink]="'/events/'+eventId()"
+    />
+  </div>
+  <div class="px-6 mt-3 w-full">
+    <app-button
+      label="Back to Home"
+      [variant]="'secondary'"
+      [rounded]="true"
+      routerLink="/home"
+    />
+  </div>
+
+</div>
