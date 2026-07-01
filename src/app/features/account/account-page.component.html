@@ -43,37 +43,102 @@
 <!--        <hr class="border-gray-200 border-t-3" />-->
 <!--      </div>-->
 
-      <div class="mt-4">
-        <app-edit-text-input label="Full Name" [(value)]="fullName" />
-        <app-edit-text-input label="Email Address" type="email" [(value)]="email" />
-        <app-edit-text-input label="Department" [(value)]="department" />
+      <div class="mt-4 overflow-hidden">
+        <div class="mt-2">
+          <hr class="border-gray-200 border-t-1" />
+        </div>
+        <button
+          type="button"
+          (click)="togglePersonalInfoAccordion()"
+          class="flex w-full items-center justify-between py-4 hover:bg-gray-50"
+        >
+          <span class="font-medium">Personal Information</span>
 
-        <div class="mt-6">
-          <app-button
-            label="Save"
-            variant="secondary"
-            class="!bg-slate-200 !text-slate-500 font-semibold"
-            [fullWidth]="true"
-            textColor="text-gray-400 border-gray-100 bg-[#cbd5e1] hover:bg-[#e2e8f0]"
-            (clicked)="onSave()"
-          />
+          <lucide-icon
+            [img]="ChevronDown"
+            class="h-5 w-5 transition-transform duration-200"
+            [class.rotate-180]="isPersonalInfoAccordionOpen"
+          ></lucide-icon>
+        </button>
+
+        @if (isPersonalInfoAccordionOpen) {
+          <div class="mt-4">
+            <app-edit-text-input label="Full Name" [(value)]="fullName" />
+            <app-edit-text-input label="Email Address" type="email" [(value)]="email" />
+            <app-edit-text-input label="Department" [(value)]="department" />
+
+            <div class="mt-6">
+              <app-button
+                label="Save"
+                variant="secondary"
+                class="!bg-slate-200 !text-slate-500 font-semibold"
+                [fullWidth]="true"
+                textColor="text-gray-400 border-gray-100 bg-[#cbd5e1] hover:bg-[#e2e8f0]"
+                (clicked)="onSave()"
+              />
+            </div>
+          </div>
+        }
+        <div class="mt-1">
+          <hr class="border-gray-200 border-t-1" />
         </div>
       </div>
     </div>
+    <!--    Security section-->
+    <div class="overflow-hidden">
+      <button
+        type="button"
+        (click)="toggleSecurityInfoAccordion()"
+        class="flex w-full items-center justify-between pb-2 hover:bg-gray-50"
+      >
+        <span class="font-medium">Account Security</span>
 
-    <div>
-      <div class="px-1 pb-2">
-        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Security</h3>
-        <div class="-mx-4 mb-6 mt-1">
-          <hr class="border-gray-200 border-t-3" />
+        <lucide-icon
+          [img]="ChevronDown"
+          class="h-5 w-5 transition-transform duration-200"
+          [class.rotate-180]="isSecurityInfoAccordionOpen"
+        ></lucide-icon>
+      </button>
+
+      @if (isSecurityInfoAccordionOpen) {
+        <div class="mt-4">
+          <app-edit-text-input label="Current Password" type="password" [(value)]="currentPassword" />
+          <app-edit-text-input label="New Password" type="password" [(value)]="newPassword" />
+          <app-edit-text-input label="Confirm Password" [(value)]="confirmPassword" />
+
+          <div class="mt-6">
+            <app-button
+              label="Update Password"
+              icon="lock"
+              variant="secondary"
+              class="!bg-slate-200 !text-slate-500 font-semibold mb-2"
+              [fullWidth]="true"
+              textColor="text-gray-400 border-gray-100 bg-[#cbd5e1] hover:bg-[#e2e8f0]"
+              (clicked)="onSave()"
+            />
+          </div>
         </div>
-        <app-security-link label="Change Password" icon="Lock" (clicked)="onChangePassword()" />
+      }
+      <div class=" mb-6 mt-1">
+        <hr class="border-gray-200 border-t-1" />
       </div>
     </div>
+
+
+
+<!--    <div>-->
+<!--      <div class="px-1 pb-2">-->
+<!--        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Security</h3>-->
+<!--        <div class="-mx-4 mb-6 mt-1">-->
+<!--          <hr class="border-gray-200 border-t-3" />-->
+<!--        </div>-->
+<!--        <app-security-link label="Change Password" icon="Lock" (clicked)="onChangePassword()" />-->
+<!--      </div>-->
+<!--    </div>-->
 
     <div class="relative">
       <app-button
-        label="Sign Out"
+        label="Log Out"
         variant="outline"
         icon="LogOut"
         textColor="text-white border-red-200 bg-red-700 hover:bg-red-20"
