@@ -29,6 +29,8 @@ import {
   Pencil,
   Lock,
   ChevronRight,
+  ArrowRight,
+  ImagePlus,
 } from 'lucide-angular';
 
 import { routes } from './app.routes';
@@ -62,6 +64,8 @@ export const appConfig: ApplicationConfig = {
         Pencil,
         Lock,
         ChevronRight,
+        ArrowRight,
+        ImagePlus,
       }),
     ),
   ],

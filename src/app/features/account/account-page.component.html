@@ -8,19 +8,40 @@
     />
     <div>
       <app-profile-header
-        [avatarUrl]="avatar()"
         [name]="currentUser?.fullName || ''"
         [subtitle]="department()"
         (editAvatar)="onEditAvatar()"
       />
 
-      <div class="px-1">
-        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Personal Info</h3>
+      <div class="flex items-center justify-center gap-6 px-4 mb-6">
+        @for (userEvent of eventData(); track $index){
+          <app-text-data
+            [value]="userEvent.Value"
+            [topic]="userEvent.Topic"/>
+        }
       </div>
 
-      <div class="-mx-4 mt-1 mb-4">
-        <hr class="border-gray-200 border-t-3" />
+      <div class="px-1 mt-2">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">My Interests</h3>
       </div>
+
+      <div class="flex gap-3 items-center justify-start my-2">
+        @for (userInterests of interests(); track $index){
+          <app-text-data
+            [topic]="userInterests"
+            [height]="'8'"
+            [width]="'auto'"/>
+        }
+        <app-text-data
+          topic="Edit"
+          [editable]="true"
+          [height]="'8'"
+          [width]="'auto'"/>
+      </div>
+
+<!--      <div class="-mx-4 mt-1 mb-4">-->
+<!--        <hr class="border-gray-200 border-t-3" />-->
+<!--      </div>-->
 
       <div class="mt-4">
         <app-edit-text-input label="Full Name" [(value)]="fullName" />

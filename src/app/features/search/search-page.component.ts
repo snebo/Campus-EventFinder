@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnInit, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
-import { EVENT_CATEGORIES } from '../../shared/models/categories.const';
+import { EVENT_CATEGORIES, EventCategory } from '../../shared/models/categories.const';
 import { DATE_FILTERS, EventDateFilter } from '../../shared/models/date-filters.const';
-import { EventCategory, EventSummary } from '../../shared/models/event.model';
+import { EventSummary } from '../../shared/models/event.model';
 import { ChipComponent } from '../../shared/ui/chip/chip.component';
 import { SearchBarComponent } from '../../shared/ui/search-bar/search-bar.component';
 import { EventsService } from '../events/data-access/events.service';
@@ -112,7 +112,7 @@ export class SearchPageComponent implements OnInit {
     this.updateUrl({ location: null });
   }
 
-  onSelectCategory(category: EventCategory): void {
+  onSelectCategory(category: string): void {
     this.categoryPickerOpen.set(false);
     this.updateUrl({ category });
   }

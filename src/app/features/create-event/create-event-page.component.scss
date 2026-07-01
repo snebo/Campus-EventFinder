@@ -1,0 +1,308 @@
+// Form Container
+.create-event-form {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-background, #ffffff);
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @media (max-width: 640px) {
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+  }
+}
+
+// Form Row for Two-Column Layouts
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+
+  .form-col {
+    width: 100%;
+  }
+}
+
+// Form Inputs
+.form-input {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--color-input-bg, #ffffff);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary, #000000);
+    box-shadow: 0 0 0 3px var(--color-primary-light, rgba(0, 0, 0, 0.1));
+  }
+
+  &:disabled {
+    background-color: var(--color-disabled-bg, #f5f5f5);
+    color: var(--color-disabled-text, #999999);
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--color-placeholder, #999999);
+  }
+}
+
+.form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.875rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+
+  option {
+    padding: 0.5rem;
+    background-color: var(--color-input-bg, #ffffff);
+    color: var(--color-text, #000000);
+  }
+}
+
+// Textarea
+.form-textarea {
+  width: 100%;
+  padding: 0.875rem;
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: var(--color-input-bg, #ffffff);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-primary, #000000);
+    box-shadow: 0 0 0 3px var(--color-primary-light, rgba(0, 0, 0, 0.1));
+  }
+
+  &::placeholder {
+    color: var(--color-placeholder, #999999);
+  }
+}
+
+// Location Input Wrapper
+.location-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  .location-icon {
+    position: absolute;
+    left: 0.875rem;
+    color: var(--color-secondary, #666666);
+    flex-shrink: 0;
+    pointer-events: none;
+  }
+
+  .location-input {
+    padding-left: 2.75rem;
+  }
+}
+
+// Image Upload Area
+.image-upload-area {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px dashed var(--color-border, #e0e0e0);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  overflow: hidden;
+  position: relative;
+
+  &:hover,
+  &:focus {
+    border-color: var(--color-primary, #000000);
+    background-color: var(--color-hover-bg, #f9f9f9);
+    outline: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px var(--color-primary-light, rgba(0, 0, 0, 0.1));
+  }
+}
+
+// Image Preview
+.image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// Upload Placeholder
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  text-align: center;
+  pointer-events: none;
+
+  .upload-icon {
+    color: var(--color-secondary, #999999);
+  }
+
+  .upload-text {
+    margin: 0;
+    color: var(--color-secondary, #999999);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+}
+
+// Hidden File Input
+.hidden-input {
+  display: none;
+}
+
+// Admission Options
+.admission-label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--color-label, #333333);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+
+.admission-options {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    .radio-input {
+      border-color: var(--color-primary, #000000);
+    }
+  }
+}
+
+.radio-input {
+  width: 1.25rem;
+  height: 1.25rem;
+  cursor: pointer;
+  accent-color: var(--color-primary, #000000);
+  margin: 0;
+
+  &:focus {
+    outline: 2px solid var(--color-primary, #000000);
+    outline-offset: 2px;
+  }
+}
+
+.radio-text {
+  font-size: 0.95rem;
+  color: var(--color-text, #333333);
+  font-weight: 500;
+}
+
+// Form Actions
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+
+  app-button {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    gap: 0.75rem;
+  }
+}
+
+// Accessibility: Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+  .form-input,
+  .form-select,
+  .form-textarea,
+  .image-upload-area {
+    transition: none;
+  }
+}
+
+// Dark Mode Support (Optional)
+@media (prefers-color-scheme: dark) {
+  .create-event-form {
+    background-color: var(--color-background-dark, #1a1a1a);
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    background-color: var(--color-input-bg-dark, #2a2a2a);
+    color: var(--color-text-dark, #ffffff);
+    border-color: var(--color-border-dark, #404040);
+
+    &::placeholder {
+      color: var(--color-placeholder-dark, #808080);
+    }
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23fff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  }
+
+  .image-upload-area {
+    border-color: var(--color-border-dark, #404040);
+
+    &:hover,
+    &:focus {
+      background-color: var(--color-hover-bg-dark, #333333);
+      border-color: var(--color-primary-dark, #ffffff);
+    }
+  }
+
+  .upload-placeholder {
+    .upload-icon,
+    .upload-text {
+      color: var(--color-secondary-dark, #999999);
+    }
+  }
+
+  .radio-text {
+    color: var(--color-text-dark, #ffffff);
+  }
+
+  .location-input-wrapper {
+    .location-icon {
+      color: var(--color-secondary-dark, #999999);
+    }
+  }
+}

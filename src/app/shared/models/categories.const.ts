@@ -1,6 +1,5 @@
-import { EventCategory } from './event.model';
 
-export const EVENT_CATEGORIES: { value: EventCategory; label: string }[] = [
+export const EVENT_CATEGORIES: { value: EventCategory | string; label: string }[] = [
   { value: 'entertainment', label: 'ENTERTAINMENT' },
   { value: 'sports', label: 'SPORTS' },
   { value: 'professional', label: 'PROFESSIONAL' },
@@ -9,3 +8,10 @@ export const EVENT_CATEGORIES: { value: EventCategory; label: string }[] = [
   { value: 'academic', label: 'ACADEMIC' },
 ];
 
+export type EventCategory = 'tech' | 'music' | 'sports' | 'business' | 'arts' | 'other';
+
+export interface Category {
+  value: EventCategory | string;
+  label: string;
+  icon?: string;
+}

@@ -1,6 +1,11 @@
-<div class="flex flex-col items-center text-center py-6">
-  <div class="relative w-24 h-24 mb-4">
-    <img [src]="avatarUrl()" class="w-full h-full rounded-2xl object-cover" alt="Profile Picture" />
+<div class="flex flex-col items-center text-center">
+  <div class="relative w-36 h-36 mb-4 border-2 border-black rounded-full">
+
+    @if (hasProfile()){
+      <img [src]="avatarUrl()" class="w-full h-full rounded-full object-cover" alt="Profile Picture" />
+    } @else {
+      <p class="font-bold text-[64px] flex items-center justify-center h-full">{{extractName()}}</p>
+    }
     <button
       (click)="editAvatar.emit()"
       class="absolute bottom-0 right-0 bg-black text-white p-1.5 rounded-full border-2 border-white shadow-md cursor-pointer hover:scale-105 transition-transform"
@@ -9,6 +14,6 @@
     </button>
   </div>
 
-  <h2 class="text-xl font-bold text-gray-900 leading-tight">{{ name() }}</h2>
-  <p class="text-sm text-gray-500 mt-1">{{ subtitle() }}</p>
+  <h2 class="text-[32px] font-bold text-gray-900 leading-tight">{{ name() }}</h2>
+  <p class="text-sm text-gray-500 mt-1 mb-6">{{ subtitle() }}</p>
 </div>

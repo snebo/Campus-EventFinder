@@ -9,6 +9,7 @@ import { ProfileHeaderComponent } from '../../shared/ui/profile-header/profile-h
 import { SecurityLinkComponent } from '../../shared/ui/security-link/security-link.component';
 import { EditTextInputComponent } from '../../shared/ui/edit-text-input/edit-text-input.component';
 import { TooltipComponent } from '../../shared/ui/tooltip/tooltip.component';
+import { TextDataComponent } from '../../shared/ui/text-data/text-data.component';
 
 @Component({
   selector: 'app-account-page',
@@ -19,6 +20,7 @@ import { TooltipComponent } from '../../shared/ui/tooltip/tooltip.component';
     SecurityLinkComponent,
     EditTextInputComponent,
     TooltipComponent,
+    TextDataComponent,
   ],
   templateUrl: './account-page.component.html',
   styleUrl: './account-page.component.scss',
@@ -31,7 +33,7 @@ export class AccountPageComponent {
   showComingSoon = signal(false);
   serverErrorDismissed = signal(false);
 
-  department = signal('Computer Engineering');
+  department = signal('Computer Engineering • 200lv • Unilag');
   avatar = signal('/assets/images/profile_image.png');
 
   protected readonly currentUser: AuthSession['user'] | null =
@@ -39,6 +41,9 @@ export class AccountPageComponent {
 
   fullName = signal(this.currentUser?.fullName ?? '');
   email = signal(this.currentUser?.email ?? '');
+
+  protected eventData =signal( [ {'Topic': 'Attended', 'Value': 13}, {'Topic': 'Saved', 'Value': 3}, {'Topic': 'RSVP', 'Value': 5}])
+  protected interests = signal(['Tech', 'Music', 'Sports'])
 
   signOut(): void {
     this.authService.logout();

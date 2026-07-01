@@ -31,6 +31,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/search/search-page.routes').then((m) => m.SEARCH_ROUTES),
       },
       {
+        path: 'create',
+        loadChildren: () => import('./features/create-event/create-event-page.routes').then((m)=> m.CREATE_EVENT_ROUTES)
+      },
+      {
         path: 'schedule',
         loadChildren: () => import('./features/schedule/schedule-page.routes').then((m) => m.SCHEDULE_ROUTES),
       },

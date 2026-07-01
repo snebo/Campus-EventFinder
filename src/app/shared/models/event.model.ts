@@ -1,6 +1,4 @@
-export type EventCategory =
-  | 'entertainment' | 'sports' | 'professional'
-  | 'cultural' | 'food' | 'academic';
+import { EventCategory } from './categories.const';
 
 export interface EventSummary {
   id: string;
@@ -12,8 +10,26 @@ export interface EventSummary {
   location?: string;
   date?: string; // ISO 8601 date (e.g. "2026-11-15") — used for chronological sort,
   // Schedule date grouping, and past-event filtering.
+  description?: string;
+  status?: 'draft' | 'published' | 'archived';
+  createdAt?: Date;
+  updatedAt?: Date;
   isBookmarked?: boolean;
   rsvpStatus?: 'rsvpd' | 'saved';
+}
+
+export type CreateEventInput = Omit<EventDetails, 'id' | 'status' | 'createdAt' | 'updatedAt'>;
+
+export interface EventFormErrors {
+  eventName?: string[];
+  eventCategory?: string[];
+  date?: string[];
+  time?: string[];
+  location?: string[];
+  aboutEvent?: string[];
+  capacity?: string[];
+  admission?: string[];
+  imageUrl?: string[];
 }
 
 export interface EventDetails extends EventSummary {

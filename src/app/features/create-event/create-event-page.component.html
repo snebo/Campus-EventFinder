@@ -1,0 +1,226 @@
+<div class=" mt-5 px-3">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="create-event-form">
+    <!-- Page Header -->
+    <app-page-header
+      title="Host an Event"
+    />
+
+    <div class="form-container">
+      <!-- Event Name Field -->
+      <app-form-field
+        for="Event name"
+        label="EVENT NAME"
+        [errorText]="errorTextFor('eventName', 'Event name')"
+      >
+        <input
+          formControlName="eventName"
+          type="text"
+          placeholder="e.g. Campus Tech Fest 2024"
+          aria-label="Event name"
+          class="form-input"
+        />
+      </app-form-field>
+
+      <!-- Event Category Field -->
+      <app-form-field
+        for="Event catrgory"
+        label="EVENT CATEGORY"
+        [errorText]="errorTextFor('eventCategory', 'Event category')"
+      >
+        <select
+          formControlName="eventCategory"
+          aria-label="Event category"
+          class="form-input form-select"
+        >
+          <option value="" disabled selected>Select Category</option>
+          @for (category of categories; track $index) {
+            <option [value]="category.value">{{ category.label }}</option>
+          }
+        </select>
+      </app-form-field>
+
+      <!-- Date and Time Row -->
+      <div class="form-row">
+        <app-form-field
+          for="event date"
+          label="DATE"
+          [errorText]="errorTextFor('date', 'Date')"
+          class="form-col"
+        >
+          <input
+            formControlName="date"
+            type="date"
+            aria-label="Event date"
+            class="form-input"
+          />
+        </app-form-field>
+
+        <app-form-field
+          for="Event time"
+          label="TIME"
+          [errorText]="errorTextFor('time', 'Time')"
+          class="form-col"
+        >
+          <input
+            formControlName="time"
+            type="time"
+            aria-label="Event time"
+            class="form-input"
+          />
+        </app-form-field>
+      </div>
+
+      <!-- Location Field -->
+      <app-form-field
+        for="Event location"
+        label="LOCATION"
+        [errorText]="errorTextFor('location', 'Location')"
+      >
+        <div class="location-input-wrapper">
+          <i-lucide name="map-pin" class="location-icon" aria-hidden="true" />
+          <input
+            formControlName="location"
+            type="text"
+            placeholder="e.g. Main Auditorium"
+            aria-label="Event location"
+            class="form-input location-input"
+          />
+        </div>
+      </app-form-field>
+
+      <!-- About Event Field -->
+      <app-form-field
+        for="Event description"
+        label="ABOUT EVENT"
+        [errorText]="errorTextFor('aboutEvent', 'Event description')"
+      >
+      <textarea
+        formControlName="aboutEvent"
+        placeholder="Provide details about what attendees can expect..."
+        aria-label="Event description"
+        class="form-textarea"
+        rows="6"
+      ></textarea>
+      </app-form-field>
+
+      <!-- Cover Image Upload Field -->
+      <app-form-field label="COVER IMAGE" for="Upload">
+        <div
+          class="image-upload-area"
+          (click)="imageInput.click()"
+          (keydown.enter)="imageInput.click()"
+          (keydown.space)="imageInput.click()"
+          tabindex="0"
+          role="button"
+          aria-label="Upload cover image, click or press space to select file"
+        >
+          @if (coverImagePreview(); as preview) {
+            <img
+              [src]="preview"
+              alt="Cover image preview"
+              class="image-preview"
+            />
+          } @else {
+            <div class="upload-placeholder">
+              <i-lucide
+                name="image-plus"
+                size="48"
+                class="upload-icon"
+                aria-hidden="true"
+              />
+              <p class="upload-text">Tap to upload 16:9 image</p>
+            </div>
+          }
+
+          <input
+            #imageInput
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            aria-label="Select cover image file"
+            class="hidden-input"
+          />
+        </div>
+      </app-form-field>
+
+    <div class="flex items-center justify-between">
+      <!-- Capacity and Admission Row -->
+      <div class="form-row">
+        <app-form-field
+          for="Event capacity"
+          label="CAPACITY"
+          [errorText]="errorTextFor('capacity', 'Capacity')"
+          class="form-col"
+        >
+          <input
+            formControlName="capacity"
+            type="number"
+            placeholder="e.g. 50"
+            min="1"
+            aria-label="Event capacity"
+            class="form-input"
+          />
+        </app-form-field>
+
+        <div class="form-col">
+          <label class="admission-label">ADMISSION</label>
+          <div class="admission-options">
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="admission"
+                value="free"
+                aria-label="Free admission"
+                class="radio-input"
+              />
+              <span class="radio-text">Free</span>
+            </label>
+
+            <label class="radio-label">
+              <input
+                type="radio"
+                formControlName="admission"
+                value="paid"
+                aria-label="Paid admission"
+                class="radio-input"
+              />
+              <span class="radio-text">Paid</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <app-button
+          label="Create Event"
+          variant="primary"
+          icon="arrow-right"
+          size="large"
+          [disabled]="isSubmitting()"
+          [loading]="isSubmitting()"
+          type="submit"
+          aria-label="Create event"
+        >
+          <i-lucide
+            name="arrow-right"
+            size="20"
+            aria-hidden="true"
+          />
+        </app-button>
+
+        <app-button
+          label="save as Draft"
+          variant="outline"
+          size="large"
+          [disabled]="isSubmitting()"
+          type="button"
+          (click)="onSubmit(true)"
+          aria-label="Save event as draft"
+        >
+        </app-button>
+      </div>
+    </div>
+  </form>
+</div>

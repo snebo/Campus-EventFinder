@@ -3,8 +3,9 @@ import { Observable, map, of, shareReplay, tap } from 'rxjs';
 
 import { MockApiService, MockUserEvents } from '../../../core/data-access/mock-api.service';
 import { EventDateFilter } from '../../../shared/models/date-filters.const';
-import { EventCategory, EventDetails, EventSummary, TrendingDetails } from '../../../shared/models/event.model';
+import { EventDetails, EventSummary, TrendingDetails } from '../../../shared/models/event.model';
 import { AuthService } from '../../auth/data-access/auth.service';
+import { EventCategory } from '../../../shared/models/categories.const';
 
 interface EventsStore {
   events: EventDetails[];
@@ -119,6 +120,27 @@ export class EventsService {
 
   toggleRsvp(id: string): void {
     this.toggleMembership('rsvpd', id);
+  }
+
+  createEvent(eventData: Omit<EventDetails, 'id'>): Observable<EventDetails> {
+    return this.read(() => {
+      const store = this.store();
+      if (!store) {
+        throw new Error('Events store is not initialized');
+      }
+      const newId = `evt-${Math.floor(Math.random() * 1000000)}`;
+      const newEvent: EventDetails = {
+        id: newId,
+        ...eventData,
+      };
+
+      this.store.set({
+        ...store,
+        events: [newEvent, ...store.events],
+      });
+
+      return newEvent;
+    });
   }
 
   // --- internals -----------------------------------------------------------
